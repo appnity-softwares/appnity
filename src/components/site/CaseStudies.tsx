@@ -56,7 +56,7 @@ const cases = [
 
 export const CaseStudies = () => {
   return (
-    <section id="work" className="relative py-28">
+    <section id="work" className="relative flex min-h-screen flex-col justify-center py-28">
       <div className="container-tight">
         <div className="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-xl">

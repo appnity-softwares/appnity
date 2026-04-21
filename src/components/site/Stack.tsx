@@ -44,7 +44,7 @@ const groups = [
 
 export const Stack = () => {
   return (
-    <section id="stack" className="relative py-28">
+    <section id="stack" className="relative flex min-h-screen flex-col justify-center py-28">
       <div className="container-tight">
         <div className="mb-14 max-w-2xl">
           <span className="badge-dot mb-5">Stack</span>

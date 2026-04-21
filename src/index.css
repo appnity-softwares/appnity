@@ -96,10 +96,12 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    font-size: 115%; /* Enhanced base zoom */
+    zoom: 1.2; /* Emulating 120-130% browser zoom */
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans min-h-screen;
     font-feature-settings: "ss01", "cv11";
   }
 
@@ -149,16 +151,23 @@
 
   .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
+  @keyframes pulse-glow {
+    0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
+    70% { transform: scale(1.1); opacity: 0.8; box-shadow: 0 0 0 6px hsl(var(--primary) / 0); }
+    100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  }
+
   .badge-dot {
-    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs mono;
-    background: hsl(var(--surface-1));
+    @apply inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-[11px] font-medium tracking-wide uppercase;
+    background: linear-gradient(to bottom, hsl(var(--surface-1)), hsl(var(--surface-2)));
     border: 1px solid hsl(var(--border-strong));
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--foreground) / 0.7);
+    box-shadow: 0 1px 2px hsl(0 0% 0% / 0.05);
   }
   .badge-dot::before {
     content: "";
     width: 6px; height: 6px; border-radius: 9999px;
     background: hsl(var(--primary));
-    box-shadow: 0 0 10px hsl(var(--primary));
+    animation: pulse-glow 2s infinite ease-in-out;
   }
 }

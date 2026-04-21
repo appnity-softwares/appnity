@@ -48,7 +48,7 @@ const tiers = [
 
 export const Pricing = () => {
   return (
-    <section id="pricing" className="relative py-28">
+    <section id="pricing" className="relative flex min-h-screen flex-col justify-center py-28">
       <div className="container-tight">
         <div className="mb-14 max-w-2xl">
           <span className="badge-dot mb-5">Engagement</span>

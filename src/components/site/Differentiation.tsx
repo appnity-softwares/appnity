@@ -30,7 +30,7 @@ const rows = [
 
 export const Differentiation = () => {
   return (
-    <section className="relative border-y border-border bg-surface-1/40 py-28">
+    <section className="relative flex min-h-screen flex-col justify-center border-y border-border bg-surface-1/40 py-28">
       <div className="container-tight">
         <div className="mb-14 max-w-2xl">
           <span className="badge-dot mb-5">Why Appnity</span>

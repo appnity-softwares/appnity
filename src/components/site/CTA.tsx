@@ -27,7 +27,7 @@ export const CTA = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32">
+    <section id="contact" className="relative flex min-h-screen flex-col justify-center py-32">
       <div className="container-tight">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

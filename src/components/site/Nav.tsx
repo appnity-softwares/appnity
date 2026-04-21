@@ -53,10 +53,12 @@ export const Nav = () => {
             scrolled ? "glass shadow-elevated" : "border border-transparent"
           }`}
         >
-          <Link to="/" className="flex items-center gap-2 pl-1">
-            <img src={logo} alt="Appnity Softwares" className="h-8 w-auto" />
-            <span className="font-semibold tracking-tight">Appnity</span>
-            <span className="mono text-xs text-muted-foreground hidden sm:inline">/softwares</span>
+          <Link to="/" className="flex items-center gap-2.5 pl-1 transition-opacity hover:opacity-90">
+            <img src={logo} alt="Appnity Softwares" className="h-9 w-auto" />
+            <div className="flex flex-col leading-none">
+              <span className="text-lg font-bold tracking-tight text-foreground">Appnity</span>
+              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">Softwares</span>
+            </div>
           </Link>
 
           <ul className="hidden md:flex items-center gap-1">
