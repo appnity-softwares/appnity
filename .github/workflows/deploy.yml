@@ -1,0 +1,25 @@
+name: Deploy to VPS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 46.28.44.37
+          username: root
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            mkdir -p /root/appnity
+            cd /root/appnity
+            if [ -d ".git" ]; then
+              git pull
+            else
+              git clone https://github.com/appnity-softwares/appnity.git .
+            fi
+            docker compose down || true
+            docker compose up -d --build
