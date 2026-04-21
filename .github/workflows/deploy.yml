@@ -21,5 +21,13 @@ jobs:
             else
               git clone https://github.com/appnity-softwares/appnity.git .
             fi
-            docker compose down || true
-            docker compose up -d --build
+            
+            # Detect docker-compose command
+            if docker compose version > /dev/null 2>&1; then
+              DOCKER_CONFIG="docker compose"
+            else
+              DOCKER_CONFIG="docker-compose"
+            fi
+            
+            $DOCKER_CONFIG down || true
+            $DOCKER_CONFIG up -d --build
