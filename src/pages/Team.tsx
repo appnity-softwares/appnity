@@ -20,14 +20,24 @@ const Team = () => {
 
   useEffect(() => {
     document.title = "Team · Appnity Softwares";
-    supabase
-      .from("team_members")
-      .select("*")
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
+    
+    const fetchMembers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("team_members")
+          .select("*")
+          .order("sort_order", { ascending: true });
+        
+        if (error) throw error;
         setMembers((data as unknown as Member[]) || []);
+      } catch (err) {
+        console.error("Error fetching team members:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchMembers();
   }, []);
 
   return (

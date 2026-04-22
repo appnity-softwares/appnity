@@ -25,14 +25,24 @@ const Portfolio = () => {
 
   useEffect(() => {
     document.title = "Portfolio · Appnity Softwares";
-    supabase
-      .from("projects")
-      .select("id,slug,title,tagline,client,industry,year,stack,outcomes,featured")
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
+    
+    const fetchProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("projects")
+          .select("id,slug,title,tagline,client,industry,year,stack,outcomes,featured")
+          .order("sort_order", { ascending: true });
+        
+        if (error) throw error;
         setProjects((data as unknown as Project[]) || []);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchProjects();
   }, []);
 
   return (
