@@ -1,84 +1,102 @@
 import { motion } from "framer-motion";
+import { Lightbulb, Layout, Code2, ShieldCheck, Rocket, LineChart } from "lucide-react";
 
 const steps = [
   {
     n: "01",
-    title: "Discovery",
-    body: "1-week paid sprint. We map your domain, audit existing systems, and produce a written technical brief — yours to keep, even if we don't continue.",
-    artifacts: ["System diagram", "Risk register", "Effort estimate (±15%)"],
+    icon: Lightbulb,
+    title: "Understanding Your Vision",
+    body: "We start by listening to your goals and business needs. We create a clear technical roadmap so you know exactly how we'll build your success.",
+    highlights: ["Clear Goals", "Project Roadmap"],
   },
   {
     n: "02",
-    title: "Architecture",
-    body: "We define service boundaries, data contracts, and non-functional requirements (latency, throughput, RTO/RPO) before writing application code.",
-    artifacts: ["ADRs", "API contracts", "Data model"],
+    icon: Layout,
+    title: "Building the Blueprint",
+    body: "Before we write a single line of code, we design the inner workings to ensure your system is fast, secure, and ready for growth.",
+    highlights: ["Safety First", "Smart Logic"],
   },
   {
     n: "03",
-    title: "Development",
-    body: "Trunk-based, typed end-to-end, reviewed by a second senior engineer. Demos every Friday on a real preview environment.",
-    artifacts: ["Preview envs", "Weekly demo", "Storybook"],
+    icon: Code2,
+    title: "Expert Development",
+    body: "Our senior engineers build your product using the best modern tools. You'll see live progress every week as we bring your idea to life.",
+    highlights: ["Weekly Updates", "Clean Code"],
   },
   {
     n: "04",
-    title: "Testing",
-    body: "Unit, integration, contract, load, and chaos tests run in CI. We refuse to ship features that lack a way to be observed in production.",
-    artifacts: ["95%+ critical path coverage", "Load profile", "Runbook"],
+    icon: ShieldCheck,
+    title: "Rigorous Testing",
+    body: "We don't just hope it works—we prove it. We test everything multiple times so your customers get a smooth, glitch-free experience.",
+    highlights: ["Zero Bugs", "High Speed"],
   },
   {
     n: "05",
-    title: "Deployment",
-    body: "Blue-green or canary, zero-downtime migrations, automated rollback. Your team gets the keys and the documentation, not a black box.",
-    artifacts: ["IaC repo", "Dashboards", "On-call playbook"],
+    icon: Rocket,
+    title: "Smooth Launch",
+    body: "We handle the entire launch process for you. Your platform goes live with zero downtime, ensuring a perfect start for your users.",
+    highlights: ["Easy Go-Live", "Safe Migration"],
   },
   {
     n: "06",
-    title: "Iteration",
-    body: "Optional retainer with monthly capacity, quarterly architecture reviews, and a clear off-ramp whenever you're ready to fully own it.",
-    artifacts: ["Monthly report", "SLO review", "Knowledge transfer"],
+    icon: LineChart,
+    title: "Continuous Growth",
+    body: "After launch, we stay as your technical partners. We help you add new features and keep your system running perfectly as you grow.",
+    highlights: ["Scalability", "Expert Support"],
   },
 ];
 
 export const Process = () => {
   return (
-    <section id="process" className="relative flex min-h-screen flex-col justify-center border-y border-border bg-surface-1/40 py-28">
-      <div className="container-tight">
-        <div className="mb-14 max-w-2xl">
-          <span className="badge-dot mb-5">Process</span>
-          <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
-            A workflow built for
+    <section id="process" className="relative flex h-screen flex-col justify-center bg-surface-1/30 py-10 overflow-hidden">
+      <div className="container-tight h-full flex flex-col justify-center">
+        <div className="mb-10 max-w-2xl">
+          <span className="badge-dot mb-3">Our Workflow</span>
+          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
+            A proven process for
             <br />
-            <span className="text-muted-foreground">things that have to keep running.</span>
+            <span className="text-brand-gradient">exceptional digital products.</span>
           </h2>
         </div>
 
-        <ol className="grid gap-px overflow-hidden rounded-2xl border border-border-strong bg-border-strong md:grid-cols-2 lg:grid-cols-3">
-          {steps.map((s, i) => (
-            <motion.li
-              key={s.n}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.04 }}
-              className="bg-background p-7"
-            >
-              <div className="flex items-baseline justify-between">
-                <span className="mono text-xs text-primary">{s.n}</span>
-                <span className="mono text-xs text-muted-foreground">step</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-              <div className="mt-4 space-y-1.5 border-t border-border-strong pt-4">
-                {s.artifacts.map((a) => (
-                  <div key={a} className="mono flex items-center gap-2 text-[11px] text-muted-foreground">
-                    <span className="h-1 w-1 rounded-full bg-primary" />
-                    {a}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {steps.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.article
+                key={s.n}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="group relative flex flex-col rounded-2xl border border-border-strong bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:bg-surface-1/50"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Icon size={20} />
                   </div>
-                ))}
-              </div>
-            </motion.li>
-          ))}
-        </ol>
+                  <span className="mono text-xs font-bold text-primary/40 group-hover:text-primary transition-colors">STEP {s.n}</span>
+                </div>
+                
+                <h3 className="text-base font-bold tracking-tight text-foreground">{s.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-3">{s.body}</p>
+                
+                <div className="mt-auto pt-4 flex flex-wrap gap-2">
+                  {s.highlights.map((h) => (
+                    <span key={h} className="rounded-full bg-surface-2 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground border border-border-strong">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+                
+                {/* Subtle Progress Indicator Line */}
+                {i < steps.length - 1 && (
+                  <div className="absolute -right-3 top-1/2 hidden h-px w-6 bg-border-strong lg:block" />
+                )}
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

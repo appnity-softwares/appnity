@@ -56,72 +56,54 @@ const cases = [
 
 export const CaseStudies = () => {
   return (
-    <section id="work" className="relative flex min-h-screen flex-col justify-center py-28">
-      <div className="container-tight">
-        <div className="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+    <section id="work" className="relative flex h-screen flex-col justify-center overflow-hidden py-10">
+      <div className="container-tight h-full flex flex-col justify-center">
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div className="max-w-xl">
-            <span className="badge-dot mb-5">Selected work</span>
-            <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
+            <span className="badge-dot mb-3">Selected work</span>
+            <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
               Engineering decisions,<br />
               <span className="text-muted-foreground">not screenshots.</span>
             </h2>
           </div>
-          <p className="max-w-md text-sm text-muted-foreground">
-            Each case study describes the system constraint, the architecture we chose, and the
-            measurable result. Names are anonymized; numbers are real.
-          </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-3">
           {cases.map((c, i) => (
             <motion.article
               key={c.client}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl border border-border-strong bg-surface-1 p-8 shadow-card md:p-10"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className="group relative overflow-hidden rounded-xl border border-border-strong bg-surface-1 p-5 shadow-sm md:p-6"
             >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-
-              <div className="grid gap-10 md:grid-cols-12">
-                <div className="md:col-span-5">
-                  <span className="mono text-xs uppercase tracking-widest text-primary">{c.tag}</span>
-                  <h3 className="mt-4 text-2xl font-semibold tracking-tight">{c.client}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{c.problem}</p>
-
-                  <div className="mt-6 flex flex-wrap gap-1.5">
-                    {c.stack.map((s) => (
-                      <span
-                        key={s}
-                        className="mono rounded-md border border-border-strong bg-surface-2 px-2 py-0.5 text-[11px] text-muted-foreground"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+              <div className="grid gap-6 md:grid-cols-12 items-center">
+                <div className="md:col-span-4">
+                  <span className="mono text-[10px] uppercase tracking-widest text-primary">{c.tag}</span>
+                  <h3 className="mt-1 text-lg font-semibold tracking-tight">{c.client}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-2">{c.problem}</p>
                 </div>
 
-                <div className="md:col-span-7">
-                  <div className="rounded-xl border border-border-strong bg-background/60 p-5">
-                    <p className="mono mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-                      Architecture
-                    </p>
-                    <ul className="space-y-2.5">
-                      {c.solution.map((s) => (
-                        <li key={s} className="flex gap-3 text-sm text-foreground/90">
-                          <span className="mt-2 h-1 w-3 shrink-0 bg-primary" />
-                          <span>{s}</span>
+                <div className="md:col-span-5">
+                  <div className="rounded-lg border border-border-strong bg-background/60 p-3">
+                    <ul className="space-y-1.5">
+                      {c.solution.slice(0, 2).map((s) => (
+                        <li key={s} className="flex gap-2 text-xs text-foreground/90">
+                          <span className="mt-1.5 h-0.5 w-2 shrink-0 bg-primary" />
+                          <span className="truncate">{s}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
+                </div>
 
-                  <div className="mt-4 grid grid-cols-3 divide-x divide-border-strong rounded-xl border border-border-strong bg-background/40">
+                <div className="md:col-span-3">
+                  <div className="grid grid-cols-3 divide-x divide-border-strong rounded-lg border border-border-strong bg-background/40">
                     {c.outcomes.map(([n, l]) => (
-                      <div key={l} className="px-4 py-4 text-center">
-                        <div className="text-xl font-semibold tracking-tight">{n}</div>
-                        <div className="mt-0.5 text-[11px] text-muted-foreground">{l}</div>
+                      <div key={l} className="px-2 py-2 text-center">
+                        <div className="text-sm font-semibold tracking-tight">{n}</div>
+                        <div className="mt-0.5 text-[9px] text-muted-foreground truncate">{l}</div>
                       </div>
                     ))}
                   </div>

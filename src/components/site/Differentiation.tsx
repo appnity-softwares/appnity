@@ -1,71 +1,85 @@
 import { motion } from "framer-motion";
+import { Check, X } from "lucide-react";
 
 const rows = [
   {
-    point: "Senior engineers only",
-    them: "Pyramid teams: one architect, six juniors writing the actual code.",
-    us: "Every line is written by an engineer with 7+ years of production experience.",
+    point: "Team Expertise",
+    them: "Junior developers learning on your project.",
+    us: "Only senior experts with 7+ years of experience.",
   },
   {
-    point: "Performance is a constraint, not a phase",
-    them: "Optimization happens after launch — if there's budget left.",
-    us: "Latency, bundle size, and database cost are tracked from week one.",
+    point: "Speed & Quality",
+    them: "Build fast now, fix bugs and slow speed later.",
+    us: "Built for speed and high quality from day one.",
   },
   {
-    point: "Maintainability is contractual",
-    them: "Codebase becomes a black box. You're stuck with the agency.",
-    us: "Documented ADRs, typed contracts, and a written off-ramp from day one.",
+    point: "Project Control",
+    them: "You're locked in and don't own the 'secret' code.",
+    us: "Full ownership of your code and documentation.",
   },
   {
-    point: "Estimates that hold",
-    them: "Quotes drift 3× during the project; surprises become invoices.",
-    us: "Fixed-scope estimates land within ±15%, or we eat the difference.",
+    point: "Pricing Honesty",
+    them: "Hidden costs and quotes that double mid-way.",
+    us: "Fixed, honest pricing with zero hidden surprises.",
   },
   {
-    point: "We say no",
-    them: "Yes to every feature; the product becomes a Frankenstein.",
-    us: "We push back when an idea will hurt the system. In writing.",
+    point: "Collaboration",
+    them: "They say 'yes' to everything, even bad ideas.",
+    us: "We guide you on what works best for your business.",
   },
 ];
 
 export const Differentiation = () => {
   return (
-    <section className="relative flex min-h-screen flex-col justify-center border-y border-border bg-surface-1/40 py-28">
-      <div className="container-tight">
-        <div className="mb-14 max-w-2xl">
-          <span className="badge-dot mb-5">Why Appnity</span>
-          <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
-            There are 1,000 agencies.
+    <section className="relative flex h-screen flex-col justify-center border-y border-border bg-surface-1/40 py-10 overflow-hidden">
+      <div className="container-tight h-full flex flex-col justify-center">
+        <div className="mb-8 max-w-2xl">
+          <span className="badge-dot mb-3">Why Appnity</span>
+          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
+            Why smart businesses
             <br />
-            <span className="text-muted-foreground">Five of them think like engineers.</span>
+            <span className="text-brand-gradient">choose Appnity Softwares.</span>
           </h2>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-border-strong">
-          <div className="grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-3 mono text-[11px] uppercase tracking-widest text-muted-foreground">
-            <div className="col-span-4">Dimension</div>
-            <div className="col-span-4">Typical agency</div>
-            <div className="col-span-4 text-primary">Appnity</div>
+        <div className="overflow-hidden rounded-2xl border border-border-strong bg-card shadow-xl">
+          {/* Header */}
+          <div className="grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-4 mono text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
+            <div className="col-span-4">What matters</div>
+            <div className="col-span-4 px-4">Other Agencies</div>
+            <div className="col-span-4 px-4 text-primary">Appnity Advantage</div>
           </div>
+
+          {/* Rows */}
           {rows.map((r, i) => (
             <motion.div
               key={r.point}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.04 }}
-              className="grid grid-cols-12 border-b border-border-strong bg-background px-6 py-6 last:border-b-0 md:items-center"
+              className="grid grid-cols-12 border-b border-border-strong bg-background transition-colors hover:bg-surface-1/50 last:border-b-0 md:items-center"
             >
-              <div className="col-span-12 mb-3 font-medium tracking-tight md:col-span-4 md:mb-0">
+              <div className="col-span-12 px-6 py-4 text-sm font-bold tracking-tight md:col-span-4 border-r border-border-strong/50">
                 {r.point}
               </div>
-              <div className="col-span-12 mb-2 text-sm text-muted-foreground md:col-span-4 md:mb-0 md:pr-6">
+              
+              <div className="col-span-12 px-10 py-4 text-xs text-muted-foreground/70 md:col-span-4 md:border-r border-border-strong/50 flex items-start gap-3 italic">
+                <X size={14} className="mt-0.5 shrink-0 text-red-500/50" />
                 {r.them}
               </div>
-              <div className="col-span-12 text-sm text-foreground md:col-span-4">{r.us}</div>
+              
+              <div className="col-span-12 px-10 py-4 text-xs font-medium text-foreground md:col-span-4 flex items-start gap-3">
+                <Check size={16} className="mt-0.5 shrink-0 text-primary" />
+                {r.us}
+              </div>
             </motion.div>
           ))}
         </div>
+        
+        <p className="mt-8 text-center text-xs text-muted-foreground">
+          We focus on building long-term value, not just short-term fixes.
+        </p>
       </div>
     </section>
   );

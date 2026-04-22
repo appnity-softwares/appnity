@@ -44,35 +44,35 @@ const groups = [
 
 export const Stack = () => {
   return (
-    <section id="stack" className="relative flex min-h-screen flex-col justify-center py-28">
-      <div className="container-tight">
-        <div className="mb-14 max-w-2xl">
-          <span className="badge-dot mb-5">Stack</span>
-          <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
+    <section id="stack" className="relative flex h-screen flex-col justify-center py-10 overflow-hidden">
+      <div className="container-tight h-full flex flex-col justify-center">
+        <div className="mb-8 max-w-2xl">
+          <span className="badge-dot mb-3">Stack</span>
+          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
             We pick tools for reasons.
             <br />
             <span className="text-muted-foreground">Then we write them down.</span>
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {groups.map((g, i) => (
             <motion.div
               key={g.label}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="rounded-2xl border border-border-strong bg-surface-1 p-7"
+              className="rounded-xl border border-border-strong bg-surface-1 p-5 shadow-sm"
             >
-              <div className="mono mb-5 text-xs uppercase tracking-widest text-primary">
+              <div className="mono mb-3 text-[10px] uppercase tracking-widest text-primary">
                 {g.label}
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {g.items.map(([name, why]) => (
-                  <li key={name} className="grid grid-cols-[140px_1fr] items-baseline gap-4">
-                    <span className="font-medium tracking-tight">{name}</span>
-                    <span className="text-sm text-muted-foreground">{why}</span>
+                  <li key={name} className="flex flex-col gap-1">
+                    <span className="text-sm font-semibold tracking-tight">{name}</span>
+                    <span className="text-[11px] leading-snug text-muted-foreground line-clamp-1">{why}</span>
                   </li>
                 ))}
               </ul>

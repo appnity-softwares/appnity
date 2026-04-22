@@ -27,39 +27,39 @@ export const CTA = () => {
   };
 
   return (
-    <section id="contact" className="relative flex min-h-screen flex-col justify-center py-32">
-      <div className="container-tight">
+    <section id="contact" className="relative flex h-screen flex-col justify-center overflow-hidden py-10">
+      <div className="container-tight h-full flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl border border-border-strong bg-surface-1 p-10 md:p-16 noise"
+          className="relative overflow-hidden rounded-3xl border border-border-strong bg-surface-1 p-8 md:p-12 noise"
         >
           <div className="pointer-events-none absolute inset-0 bg-gradient-mesh opacity-80" aria-hidden />
           <div className="pointer-events-none absolute -top-32 left-1/2 h-[400px] w-[600px] -translate-x-1/2 bg-gradient-radial blur-2xl" aria-hidden />
 
           <div className="relative mx-auto max-w-2xl text-center">
             <span className="badge-dot">2 build slots open · Q2</span>
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-6xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
               <span className="text-gradient">Have a system</span>
               <br />
               <span className="text-foreground">worth getting right?</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">
               Send us a paragraph about what you're building. You'll hear back from a senior
-              engineer within one business day — not a sales rep, not a form letter.
+              engineer within one business day — not a sales rep.
             </p>
 
             {submitted ? (
-              <div className="mx-auto mt-10 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-8 text-left shadow-elevated">
-                <p className="mono text-xs text-primary">// brief received</p>
-                <p className="mt-3 text-lg text-foreground">
+              <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-6 text-left shadow-elevated">
+                <p className="mono text-[10px] text-primary">// brief received</p>
+                <p className="mt-2 text-base text-foreground">
                   Thanks — your message is in. A senior engineer will reply within one business day.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mono mt-4 text-xs text-muted-foreground underline-offset-4 hover:underline"
+                  className="mono mt-4 text-[10px] text-muted-foreground underline-offset-4 hover:underline"
                 >
                   Send another brief
                 </button>
@@ -67,29 +67,29 @@ export const CTA = () => {
             ) : (
               <form
                 onSubmit={onSubmit}
-                className="mx-auto mt-10 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-2 text-left shadow-elevated"
+                className="mx-auto mt-8 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-1.5 text-left shadow-elevated"
               >
                 <textarea
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={3}
-                  placeholder="We're a Series A fintech. Our payments dashboard is slow and our webhook ingestion drops events under load…"
-                  className="w-full resize-none rounded-xl bg-transparent p-4 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                  rows={2}
+                  placeholder="Tell us about your system challenge..."
+                  className="w-full resize-none rounded-xl bg-transparent p-3 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 />
-                <div className="flex flex-col gap-3 border-t border-border-strong p-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-2 border-t border-border-strong p-2 sm:flex-row sm:items-center sm:justify-between">
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
-                    className="flex-1 rounded-lg bg-surface-2 px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="flex-1 rounded-lg bg-surface-2 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                   />
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
                   >
                     {submitting ? (
                       <>
@@ -105,7 +105,7 @@ export const CTA = () => {
               </form>
             )}
 
-            <p className="mono mt-5 text-xs text-muted-foreground">
+            <p className="mono mt-4 text-[10px] text-muted-foreground">
               Or email <a className="text-foreground underline-offset-4 hover:underline" href="mailto:hello@appnity.softwares">hello@appnity.softwares</a>
             </p>
           </div>
