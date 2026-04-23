@@ -9,8 +9,7 @@ const stats = [
 ];
 
 const logos = [
-  "Heritage Realty", "Sai Logistics", "Edutech India", "Vertex Solutions", "Nexus Digital",
-  "Cloud9 Systems", "Prism Craft", "Horizon Tech", "Core Logistics", "Aura Designs",
+  "Crova", "Chhatisgarh Shadi", "GrowthHub", "Mitaan Express",
 ];
 
 export const TrustStrip = () => {
