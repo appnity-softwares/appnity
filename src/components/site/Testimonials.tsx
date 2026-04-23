@@ -3,30 +3,35 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Appnity didn't just build our platform; they built our business foundation. Their strategic insight into the Indian market was as valuable as their code.",
-    author: "Rajesh Gupta",
-    role: "Founder, Heritage Realty",
+    quote: "Building a custom wardrobe management system was a huge challenge. Appnity delivered a solution that is both technically robust and beautiful. Their attention to detail is exceptional.",
+    author: "Rashmeet Kaur",
+    company: "Crova",
   },
   {
-    quote: "Building a custom ERP seemed impossible until we met this team. They delivered a system that scales with our growth and handles thousands of daily orders.",
-    author: "Ananya Sharma",
-    role: "Managing Director, Shri Sai Logistics",
+    quote: "For a platform as personal as matrimonial services, we needed a partner who understood both technology and trust. Appnity built a secure, high-performance system.",
+    author: "Jaideep Gupta",
+    company: "Chhatisgarh Shadi",
   },
   {
-    quote: "The transparency in their process is unmatched. Finding a partner in India who delivers 'absolute precision' without constant supervision is a rare find.",
-    author: "Vikram Singh",
-    role: "Director, Edutech India",
+    quote: "Transparent, fast, and professional. The team at Appnity feels like an extension of our own engineering department. They truly architect excellence.",
+    author: "Prateek Tatode",
+    company: "GrowthHub",
+  },
+  {
+    quote: "Delivering absolute precision was key for my personal brand. Appnity shipped a high-performance site that exceeds all my expectations in terms of speed and UI.",
+    author: "Mitaan Express",
+    company: "Shridhar Rao",
   },
 ];
 
 export const Testimonials = () => {
   return (
-    <section className="relative h-screen flex flex-col justify-center overflow-hidden border-t border-border/50 bg-background py-20">
+    <section id="testimonials" className="relative h-screen flex flex-col justify-center overflow-hidden border-t border-border/50 bg-background py-16">
       {/* Precision Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] grid-bg" />
       
       <div className="container-tight relative z-10 px-6">
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +48,7 @@ export const Testimonials = () => {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.author}
@@ -51,32 +56,33 @@ export const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative rounded-2xl border border-border-strong dark:border-white/5 bg-white/70 dark:bg-zinc-900/30 backdrop-blur-sm p-8 transition-all hover:border-primary/30 dark:hover:border-primary/40 hover:shadow-elevated"
+              className="group relative flex flex-col rounded-2xl border border-border-strong dark:border-white/5 bg-white/70 dark:bg-zinc-900/30 backdrop-blur-sm p-6 transition-all hover:border-primary/30 dark:hover:border-primary/40 hover:shadow-elevated h-full"
             >
-              <Quote className="absolute -top-3 left-6 h-8 w-8 text-primary/20 fill-primary/10 transition-colors group-hover:text-primary/40" />
-              <p className="relative z-10 text-sm italic leading-relaxed text-foreground/80 dark:text-zinc-300">
+              <Quote className="absolute -top-3 left-6 h-6 w-6 text-primary/20 fill-primary/10 transition-colors group-hover:text-primary/40" />
+              <p className="relative z-10 text-[11px] leading-relaxed text-foreground/80 dark:text-zinc-300 italic flex-1">
                 "{t.quote}"
               </p>
-              <div className="mt-8 border-t border-border/40 dark:border-white/5 pt-6 flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+              <div className="mt-6 border-t border-border/40 dark:border-white/5 pt-4 flex items-center gap-3">
+                <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">
                   {t.author[0]}
                 </div>
                 <div>
-                  <div className="font-bold text-sm text-foreground dark:text-zinc-200">{t.author}</div>
+                  <div className="font-bold text-[12px] text-foreground dark:text-zinc-200">{t.author}</div>
+                  <div className="text-[8px] uppercase tracking-widest text-primary/70 font-bold">{t.company}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <p className="mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">
-            Trusted by 12+ Companies across India
+            Real Proof. Real People. Real Results.
           </p>
         </div>
       </div>
     </section>
   );
 };
+
 
