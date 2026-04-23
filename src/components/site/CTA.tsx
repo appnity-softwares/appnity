@@ -1,115 +1,141 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Send, CheckCircle2, MessageSquare } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 export const CTA = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { toast } = useToast();
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !message) return;
-    setSubmitting(true);
-    const { error } = await supabase.from("leads").insert({ email, message });
-    setSubmitting(false);
-    if (error) {
-      toast.error("Couldn't send your brief. Try emailing us directly.");
-      return;
+    setLoading(true);
+    
+    try {
+      const { error } = await supabase
+        .from("leads")
+        .insert([{ email, message, source: "footer_cta" }]);
+
+      if (error) throw error;
+      
+      setSuccess(true);
+      toast({
+        title: "Message sent",
+        description: "We'll get back to you within 24 hours.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-    setSubmitted(true);
-    setEmail("");
-    setMessage("");
-    toast.success("Brief received. We'll reply within one business day.");
   };
 
   return (
-    <section id="contact" className="relative flex h-screen flex-col justify-center overflow-hidden py-10">
-      <div className="container-tight h-full flex flex-col justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl border border-border-strong bg-surface-1 p-8 md:p-12 noise"
-        >
-          <div className="pointer-events-none absolute inset-0 bg-gradient-mesh opacity-80" aria-hidden />
-          <div className="pointer-events-none absolute -top-32 left-1/2 h-[400px] w-[600px] -translate-x-1/2 bg-gradient-radial blur-2xl" aria-hidden />
-
-          <div className="relative mx-auto max-w-2xl text-center">
-            <span className="badge-dot">2 build slots open · Q2</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
-              <span className="text-gradient">Have a system</span>
+    <section id="contact" className="section-container border-t border-border bg-background">
+      <div className="container-tight relative z-10">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+          <div>
+            <span className="badge-dot mb-4">Let's talk business</span>
+            <h2 className="text-4xl font-semibold tracking-tight md:text-6xl">
+              Ready to turn your vision into 
               <br />
-              <span className="text-foreground">worth getting right?</span>
+              <span className="text-brand-gradient">measurable profit?</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">
-              Send us a paragraph about what you're building. You'll hear back from a senior
-              engineer within one business day — not a sales rep.
+            <p className="mt-6 max-w-md text-lg text-muted-foreground">
+              Whether you're looking to build a new system or fix an existing one, 
+              we're here to provide the strategic engineering you need.
             </p>
-
-            {submitted ? (
-              <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-6 text-left shadow-elevated">
-                <p className="mono text-[10px] text-primary">// brief received</p>
-                <p className="mt-2 text-base text-foreground">
-                  Thanks — your message is in. A senior engineer will reply within one business day.
-                </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="mono mt-4 text-[10px] text-muted-foreground underline-offset-4 hover:underline"
-                >
-                  Send another brief
-                </button>
+            
+            <div className="mt-10 space-y-4">
+              <div className="flex items-center gap-3 text-sm text-foreground/80">
+                <CheckCircle2 className="h-5 w-5 text-primary" />
+                <span>Response within 24 hours</span>
               </div>
-            ) : (
-              <form
-                onSubmit={onSubmit}
-                className="mx-auto mt-8 max-w-xl rounded-2xl border border-border-strong bg-background/60 p-1.5 text-left shadow-elevated"
-              >
-                <textarea
-                  required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  rows={2}
-                  placeholder="Tell us about your system challenge..."
-                  className="w-full resize-none rounded-xl bg-transparent p-3 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
-                />
-                <div className="flex flex-col gap-2 border-t border-border-strong p-2 sm:flex-row sm:items-center sm:justify-between">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
-                    className="flex-1 rounded-lg bg-surface-2 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
+              <div className="flex items-center gap-3 text-sm text-foreground/80">
+                <CheckCircle2 className="h-5 w-5 text-primary" />
+                <span>Direct access to senior engineers</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-foreground/80">
+                <CheckCircle2 className="h-5 w-5 text-primary" />
+                <span>Zero-obligation strategy session</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-primary/10 via-accent/5 to-transparent blur-2xl" />
+            
+            <form 
+              onSubmit={handleSubmit}
+              className="relative rounded-2xl border border-border-strong bg-card p-8 shadow-xl"
+            >
+              {success ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center py-10 text-center"
+                >
+                  <div className="mb-4 grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
+                    <CheckCircle2 size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold">Strategy call scheduled!</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Check your inbox. We'll be in touch shortly to finalize the time.
+                  </p>
+                </motion.div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                      Business Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      className="w-full rounded-xl border border-border-strong bg-surface-1 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                      How can we help?
+                    </label>
+                    <textarea
+                      id="message"
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Briefly describe your goals or challenges..."
+                      className="min-h-[120px] w-full resize-none rounded-xl border border-border-strong bg-surface-1 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
                   <button
                     type="submit"
-                    disabled={submitting}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
+                    disabled={loading}
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-primary-foreground shadow-glow transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
                   >
-                    {submitting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" /> Sending
-                      </>
-                    ) : (
-                      <>
-                        Send brief <span>→</span>
-                      </>
-                    )}
+                    {loading ? "Sending..." : "Request a strategy session"}
+                    <Send size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </button>
+                  <p className="text-center text-[10px] text-muted-foreground">
+                    No spam. Just engineering-grade strategic advice.
+                  </p>
                 </div>
-              </form>
-            )}
-
-            <p className="mono mt-4 text-[10px] text-muted-foreground">
-              Or email <a className="text-foreground underline-offset-4 hover:underline" href="mailto:hello@appnity.softwares">hello@appnity.softwares</a>
-            </p>
+              )}
+            </form>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

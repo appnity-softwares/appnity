@@ -1,114 +1,134 @@
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 
 const tiers = [
   {
-    name: "Fixed Project",
-    price: "from $18k",
-    cadence: "one-time",
-    best: "MVPs, redesigns, scoped builds with a clear deliverable.",
+    name: "Starter / Fixed",
+    price: "₹18,000",
+    cadence: "starting",
+    desc: "Perfect for high-quality landing pages, UI designs, or specific bug fixes.",
     features: [
-      "Written technical brief & estimate (±15%)",
-      "2–10 week timeline",
-      "Production deployment + handover",
-      "30 days post-launch support",
+      "Rapid UI/UX Prototyping",
+      "Landing Page development",
+      "Performance optimization",
+      "Bug fixes & Small features",
+      "24-48 hour turnaround",
     ],
-    cta: "Scope a project",
+    cta: "Scope a task",
     accent: false,
   },
   {
-    name: "Monthly Retainer",
-    price: "from $9.5k",
+    name: "Growth Retainer",
+    price: "₹45,000",
     cadence: "/ month",
-    best: "Live products needing continuous engineering capacity.",
+    desc: "Consistent engineering support to keep your startup moving fast.",
     features: [
-      "Dedicated 0.5 FTE senior engineer",
-      "Weekly demo + roadmap sync",
-      "Quarterly architecture review",
-      "Pause or cancel monthly",
+      "Dedicated Frontend/Backend dev",
+      "Direct Slack/Discord access",
+      "Weekly progress syncs",
+      "Regular feature updates",
+      "Emergency support (24/7)",
     ],
-    cta: "Book a call",
+    cta: "Book a slot",
     accent: true,
   },
   {
-    name: "Dedicated Team",
-    price: "from $32k",
+    name: "Pro / Dedicated",
+    price: "₹1,20,000",
     cadence: "/ month",
-    best: "Companies replacing or augmenting an in-house team.",
+    desc: "Accelerate your product roadmap with a focused engineering unit.",
     features: [
-      "2–5 senior engineers + tech lead",
-      "Embedded in your tools (Slack, Linear, Git)",
-      "SLA-backed delivery cadence",
-      "Direct hire option after 6 months",
+      "Full-stack team support",
+      "Tech Lead supervision",
+      "QA & Architecture review",
+      "Deep integration in your team",
+      "Monthly roadmap strategy",
     ],
-    cta: "Talk to a partner",
+    cta: "Talk to us",
     accent: false,
   },
 ];
 
 export const Pricing = () => {
   return (
-    <section id="pricing" className="relative flex h-screen flex-col justify-center py-10 overflow-hidden">
-      <div className="container-tight h-full flex flex-col justify-center">
-        <div className="mb-8 max-w-2xl">
-          <span className="badge-dot mb-3">Engagement</span>
-          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
-            Three ways to work
-            <br />
-            <span className="text-muted-foreground">with us. Priced openly.</span>
-          </h2>
+    <section id="pricing" className="section-container bg-background">
+      <div className="container-tight">
+        <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row md:items-end">
+          <div className="max-w-2xl text-center md:text-left">
+            <span className="mono text-[10px] font-bold uppercase tracking-[0.3em] text-primary bg-primary/5 px-3 py-1 rounded">Commercials</span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl text-foreground">
+              Accessible pricing. 
+              <br />
+              <span className="text-muted-foreground">Engineering for everyone.</span>
+            </h2>
+          </div>
+          
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <div className="rounded-lg border border-border-strong bg-surface-1 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              GST 18% as applicable
+            </div>
+          </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {tiers.map((t, i) => (
-            <motion.div
+            <motion.div 
               key={t.name}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className={`relative flex flex-col rounded-xl border p-5 ${
-                t.accent
-                  ? "border-primary/40 bg-surface-1 shadow-glow"
-                  : "border-border-strong bg-surface-1"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className={`relative flex flex-col rounded-2xl border border-border-strong bg-surface-1 p-8 transition-all hover:border-border hover:shadow-sm group ${
+                t.accent ? "border-primary/40 bg-white shadow-sm ring-1 ring-primary/10" : ""
               }`}
             >
               {t.accent && (
-                <span className="mono absolute -top-2.5 left-7 rounded-full bg-primary px-2 py-0.5 text-[8px] uppercase tracking-widest text-primary-foreground">
-                  Most picked
-                </span>
+                <div className="absolute -top-3 left-6 rounded-md bg-primary px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-primary-foreground shadow-sm">
+                  Best Value
+                </div>
               )}
-              <h3 className="text-base font-semibold tracking-tight">{t.name}</h3>
-              <p className="mt-1 text-xs text-muted-foreground line-clamp-1">{t.best}</p>
-              <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-3xl font-semibold tracking-tight">{t.price}</span>
-                <span className="text-[10px] text-muted-foreground">{t.cadence}</span>
+              
+              <div className="mb-8">
+                <h3 className="text-xl font-bold tracking-tight text-foreground">{t.name}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed h-10 opacity-80">{t.desc}</p>
               </div>
-              <ul className="mt-4 flex-1 space-y-2 border-t border-border-strong pt-4">
+              
+              <div className="mb-10 border-b border-border/50 pb-8">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold tracking-tight text-foreground">{t.price}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{t.cadence}</span>
+                </div>
+              </div>
+
+              <ul className="flex-1 space-y-4">
                 {t.features.map((f) => (
-                  <li key={f} className="flex gap-2 text-[11px] text-foreground/90">
-                    <Check size={12} className="mt-0.5 shrink-0 text-primary" />
-                    <span className="truncate">{f}</span>
+                  <li key={f} className="flex items-start gap-3 text-xs text-foreground/80 font-medium">
+                    <Check size={14} className="mt-0.5 shrink-0 text-primary" />
+                    {f}
                   </li>
                 ))}
               </ul>
-              <a
-                href="#contact"
-                className={`mt-4 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-medium transition-transform hover:scale-[1.02] ${
-                  t.accent
-                    ? "bg-primary text-primary-foreground"
-                    : "hairline text-foreground hover:bg-surface-2"
+
+              <a 
+                href="#contact" 
+                className={`mt-10 flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs font-bold transition-all ${
+                  t.accent 
+                    ? "bg-primary text-primary-foreground shadow-glow hover:bg-primary/90" 
+                    : "border border-border-strong bg-white hover:bg-surface-2"
                 }`}
               >
-                {t.cta} <span>→</span>
+                {t.cta}
+                <ArrowRight size={16} />
               </a>
             </motion.div>
           ))}
         </div>
 
-        <p className="mono mt-6 text-center text-[10px] text-muted-foreground">
-          All engagements include source code ownership and documentation.
-        </p>
+        <div className="mt-12 text-center">
+          <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-[0.2em]">
+            Scaling a big idea? <a href="#contact" className="text-primary hover:underline underline-offset-4 decoration-primary/30">Custom enterprise plans available</a>
+          </p>
+        </div>
       </div>
     </section>
   );

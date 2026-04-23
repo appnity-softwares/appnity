@@ -44,14 +44,14 @@ const groups = [
 
 export const Stack = () => {
   return (
-    <section id="stack" className="relative flex h-screen flex-col justify-center py-10 overflow-hidden">
-      <div className="container-tight h-full flex flex-col justify-center">
-        <div className="mb-8 max-w-2xl">
-          <span className="badge-dot mb-3">Stack</span>
+    <section id="stack" className="section-container bg-background">
+      <div className="container-tight">
+        <div className="mb-10 max-w-2xl">
+          <span className="label-high-contrast">Technology Stack</span>
           <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
             We pick tools for reasons.
             <br />
-            <span className="text-muted-foreground">Then we write them down.</span>
+            <span className="text-brand-gradient">Then we write them down.</span>
           </h2>
         </div>
 
@@ -63,16 +63,16 @@ export const Stack = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="rounded-xl border border-border-strong bg-surface-1 p-5 shadow-sm"
+              className="rounded-xl border border-border-strong bg-surface-1 p-6 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="mono mb-3 text-[10px] uppercase tracking-widest text-primary">
+              <div className="label-high-contrast text-primary mb-4">
                 {g.label}
               </div>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {g.items.map(([name, why]) => (
                   <li key={name} className="flex flex-col gap-1">
-                    <span className="text-sm font-semibold tracking-tight">{name}</span>
-                    <span className="text-[11px] leading-snug text-muted-foreground line-clamp-1">{why}</span>
+                    <span className="text-sm font-semibold tracking-tight text-foreground">{name}</span>
+                    <span className="text-[11px] leading-relaxed text-muted-foreground">{why}</span>
                   </li>
                 ))}
               </ul>

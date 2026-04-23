@@ -23,7 +23,7 @@ export const Footer = () => {
 
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 md:flex-row md:items-center">
           <p className="mono text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Appnity Softwares — Built with intention.
+            © 2025 Appnity Softwares — Architecting Digital Excellence.
           </p>
           <p className="mono text-xs text-muted-foreground">
             All systems operational · <span className="text-primary">●</span> 99.99% uptime

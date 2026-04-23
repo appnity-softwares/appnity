@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const Hero = () => {
   return (
-    <section id="top" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-32 noise">
+    <section id="top" className="relative flex flex-col items-center justify-center overflow-hidden pt-36 pb-20 md:pt-48 md:pb-24 noise">
       {/* Backdrop */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-mesh" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden />
@@ -15,7 +15,7 @@ export const Hero = () => {
           transition={{ duration: 0.7 }}
           className="flex justify-center"
         >
-          <span className="badge-dot">Now building the future with Appnity Softwares</span>
+          <span className="badge-dot">Your strategic technology partner</span>
         </motion.div>
 
         <motion.h1
@@ -24,9 +24,9 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.05 }}
           className="mx-auto mt-6 max-w-4xl text-center text-5xl font-semibold tracking-tight md:text-7xl"
         >
-          <span className="text-foreground">Transforming bold visions</span>
+          <span className="text-foreground">We build the software</span>
           <br />
-          <span className="text-brand-gradient">into engineering reality.</span>
+          <span className="text-brand-gradient">that scales your business.</span>
         </motion.h1>
 
         <motion.p
@@ -35,8 +35,8 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground"
         >
-          We architect and build the web platforms, intelligence layers, and systems that 
-          turn high-stakes ideas into bulletproof digital leverage.
+          Forget technical debt and broken promises. We partner with ambitious founders 
+          to ship bulletproof systems that turn complex ideas into measurable profit.
         </motion.p>
 
         <motion.div
@@ -47,18 +47,27 @@ export const Hero = () => {
         >
           <a
             href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
           >
-            Start a project
+            Schedule a strategy call
             <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </a>
           <a
             href="#work"
-            className="inline-flex items-center gap-2 rounded-full hairline px-6 py-3 text-sm font-medium text-foreground hover:bg-surface-2"
+            className="inline-flex items-center gap-2 rounded-full hairline px-8 py-4 text-sm font-medium text-foreground hover:bg-surface-2 transition-colors"
           >
-            View work
+            Explore our systems
           </a>
         </motion.div>
+        
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-8 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60"
+        >
+          Trusted by founders across FinTech, HealthTech, and E-commerce
+        </motion.p>
       </div>
     </section>
   );

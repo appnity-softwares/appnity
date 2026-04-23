@@ -31,10 +31,10 @@ const rows = [
 
 export const Differentiation = () => {
   return (
-    <section className="relative flex h-screen flex-col justify-center border-y border-border bg-surface-1/40 py-10 overflow-hidden">
-      <div className="container-tight h-full flex flex-col justify-center">
-        <div className="mb-8 max-w-2xl">
-          <span className="badge-dot mb-3">Why Appnity</span>
+    <section className="section-container bg-surface-1/40">
+      <div className="container-tight">
+        <div className="mb-10 max-w-2xl">
+          <span className="label-high-contrast">Why Appnity</span>
           <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
             Why smart businesses
             <br />
@@ -42,10 +42,10 @@ export const Differentiation = () => {
           </h2>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-border-strong bg-card shadow-xl">
+        <div className="overflow-hidden rounded-[2rem] border border-border-strong bg-card shadow-xl">
           {/* Header */}
-          <div className="grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-4 mono text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
-            <div className="col-span-4">What matters</div>
+          <div className="grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-5 label-high-contrast text-muted-foreground mb-0">
+            <div className="col-span-4">Feature</div>
             <div className="col-span-4 px-4">Other Agencies</div>
             <div className="col-span-4 px-4 text-primary">Appnity Advantage</div>
           </div>
@@ -60,16 +60,16 @@ export const Differentiation = () => {
               transition={{ duration: 0.4, delay: i * 0.04 }}
               className="grid grid-cols-12 border-b border-border-strong bg-background transition-colors hover:bg-surface-1/50 last:border-b-0 md:items-center"
             >
-              <div className="col-span-12 px-6 py-4 text-sm font-bold tracking-tight md:col-span-4 border-r border-border-strong/50">
+              <div className="col-span-12 px-6 py-5 text-sm font-bold tracking-tight md:col-span-4 border-r border-border-strong/50">
                 {r.point}
               </div>
               
-              <div className="col-span-12 px-10 py-4 text-xs text-muted-foreground/70 md:col-span-4 md:border-r border-border-strong/50 flex items-start gap-3 italic">
+              <div className="col-span-12 px-10 py-5 text-xs text-muted-foreground/70 md:col-span-4 md:border-r border-border-strong/50 flex items-start gap-3 italic">
                 <X size={14} className="mt-0.5 shrink-0 text-red-500/50" />
                 {r.them}
               </div>
               
-              <div className="col-span-12 px-10 py-4 text-xs font-medium text-foreground md:col-span-4 flex items-start gap-3">
+              <div className="col-span-12 px-10 py-5 text-xs font-medium text-foreground md:col-span-4 flex items-start gap-3">
                 <Check size={16} className="mt-0.5 shrink-0 text-primary" />
                 {r.us}
               </div>
@@ -77,7 +77,7 @@ export const Differentiation = () => {
           ))}
         </div>
         
-        <p className="mt-8 text-center text-xs text-muted-foreground">
+        <p className="mt-10 text-center text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
           We focus on building long-term value, not just short-term fixes.
         </p>
       </div>

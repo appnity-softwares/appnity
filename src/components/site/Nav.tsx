@@ -35,7 +35,7 @@ export const Nav = () => {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.classList.toggle("dark", next);
-    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch {}
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch (e) { console.warn("Theme storage failed:", e); }
   };
 
   return (

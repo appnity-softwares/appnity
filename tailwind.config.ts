@@ -1,3 +1,4 @@
+import animate from "tailwindcss-animate";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -72,10 +73,11 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.6s cubic-bezier(0.22,1,0.36,1) both",
         "marquee": "marquee 40s linear infinite",
+        "marquee-slow": "marquee 80s linear infinite",
         "pulse-glow": "pulse-glow 2.5s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

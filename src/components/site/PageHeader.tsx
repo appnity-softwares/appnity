@@ -13,27 +13,29 @@ export const PageHeader = ({ eyebrow, title, description }: PageHeaderProps) => 
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-50" aria-hidden />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 bg-gradient-radial blur-2xl" aria-hidden />
 
-      <div className="container-tight relative">
+      <div className="container-tight relative flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="badge-dot">{eyebrow}</span>
+          <span className="label-high-contrast">{eyebrow}</span>
         </motion.div>
+        
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
-          className="mt-6 max-w-4xl text-5xl font-semibold tracking-tight md:text-6xl"
+          className="mx-auto mt-6 max-w-4xl text-5xl font-semibold tracking-tight md:text-7xl leading-[1.1]"
         >
           {title}
         </motion.h1>
+        
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
+          className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
         >
           {description}
         </motion.p>

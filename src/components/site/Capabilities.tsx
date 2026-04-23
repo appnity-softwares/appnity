@@ -4,58 +4,64 @@ import { Globe, Database, Cpu, Smartphone, Workflow, ShieldCheck } from "lucide-
 const items = [
   {
     icon: Globe,
-    title: "Fast & High-Performance Websites",
+    title: "High-Performance Platforms",
     description: "We build websites that don't just look good—they load instantly and rank higher on search engines.",
-    benefit: "Perfect for businesses that need to turn visitors into customers without technical glitches.",
-    stack: ["E-commerce", "Dashboards", "Marketing Sites", "Speed Optimization"],
+    benefit: "Turn visitors into customers without technical glitches.",
+    idealFor: "SaaS, E-commerce, & Marketing",
+    stack: ["Speed Optmized", "SEO Ready", "Conversion Focused"],
   },
   {
     icon: Database,
-    title: "Powerful Business Systems",
-    description: "Custom backend systems designed to handle your growth without crashing or slowing down.",
-    benefit: "Ensures your business runs smoothly even as you scale to thousands of users.",
-    stack: ["Database Design", "API Development", "Cloud Systems", "Real-time Data"],
+    title: "Scalable Business Backends",
+    description: "Custom internal systems designed to handle your growth without crashing or slowing down.",
+    benefit: "Focus on your business while the tech handles the scale.",
+    idealFor: "FinTech & Data Management",
+    stack: ["Cloud Native", "Real-time Sync", "Secure APIs"],
   },
   {
     icon: Cpu,
-    title: "Smart AI Solutions",
+    title: "Practical AI Integration",
     description: "Automate repetitive tasks and gain insights from your data using custom AI tools.",
-    benefit: "Save hundreds of hours every month by letting AI handle the heavy lifting for your team.",
-    stack: ["GPT-4 Integration", "Smart Search", "Data Analysis", "Chatbots"],
+    benefit: "Save hundreds of hours by letting AI handle the heavy lifting.",
+    idealFor: "Process Automation & Analysis",
+    stack: ["LLM Workflows", "Smart Search", "Data Mining"],
   },
   {
     icon: Smartphone,
-    title: "Custom Mobile Apps",
+    title: "Cross-Platform Mobile",
     description: "Engage your customers anywhere with high-quality apps for both iOS and Android.",
-    benefit: "One high-quality app that works perfectly on all devices, saving you time and cost.",
-    stack: ["iOS & Android", "User Experience", "App Store Launch", "Fast Performance"],
+    benefit: "One high-quality app for all devices, saving time and cost.",
+    idealFor: "Consumer Apps & Portals",
+    stack: ["iOS & Android", "Native Feel", "Offline Ready"],
   },
   {
     icon: Workflow,
-    title: "Reliable Cloud Setup",
+    title: "Managed Cloud Ops",
     description: "We set up and manage your cloud infrastructure so your systems are always online.",
-    benefit: "Peace of mind knowing your digital platform is stable, secure, and ready for anything.",
-    stack: ["AWS/Cloudflare", "Automated Deploys", "24/7 Uptime", "Scalability"],
+    benefit: "Peace of mind with 24/7 stability and security.",
+    idealFor: "Enterprise & High-Traffic",
+    stack: ["AWS/Cloudflare", "CI/CD", "Auto-scaling"],
   },
   {
     icon: ShieldCheck,
-    title: "Data Security & Trust",
+    title: "Security & Compliance",
     description: "Protect your business and customer data with industry-leading security practices.",
-    benefit: "Build trust with your users by ensuring their information is handled with the highest care.",
-    stack: ["Encryption", "Privacy Compliance", "Secure Login", "Risk Audit"],
+    benefit: "Build trust with users by securing their information.",
+    idealFor: "HealthTech & Legal Systems",
+    stack: ["Encryption", "Audit Ready", "Access Control"],
   },
 ];
 
 export const Capabilities = () => {
   return (
-    <section id="capabilities" className="relative flex h-screen flex-col justify-center overflow-hidden bg-surface-1/30 py-8">
-      <div className="container-tight h-full flex flex-col justify-center">
+    <section id="capabilities" className="section-container border-b border-border bg-surface-1/30">
+      <div className="container-tight">
         <div className="mb-8 max-w-2xl">
-          <span className="badge-dot mb-3">Our Services</span>
+          <span className="label-high-contrast">Our Expertise</span>
           <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
-            We don't just write code.
+            Technical mastery applied
             <br />
-            <span className="text-brand-gradient">We solve business problems.</span>
+            <span className="text-brand-gradient">to your specific industry.</span>
           </h2>
         </div>
 
@@ -75,24 +81,29 @@ export const Capabilities = () => {
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                     <Icon size={20} />
                   </div>
-                  <span className="text-2xl font-bold opacity-10 transition-opacity group-hover:opacity-20">0{i + 1}</span>
+                  <span className="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/5 rounded-full">
+                    {item.idealFor}
+                  </span>
                 </div>
                 
                 <h3 className="text-base font-bold tracking-tight text-foreground">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-2">{item.description}</p>
-                <p className="mt-3 text-xs font-medium text-foreground/80 bg-surface-2/50 p-2 rounded-lg border border-border/50">
-                  <span className="text-primary font-bold">Benefit:</span> {item.benefit}
-                </p>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground line-clamp-2">{item.description}</p>
                 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {item.stack.slice(0, 3).map((s) => (
+                <div className="mt-4 flex flex-wrap gap-1">
+                  {item.stack.map((s) => (
                     <span
                       key={s}
-                      className="rounded-full bg-surface-2 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground border border-border-strong"
+                      className="rounded-md bg-surface-2/50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground border border-border/50"
                     >
                       {s}
                     </span>
                   ))}
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-border/40">
+                  <p className="text-[10px] text-foreground font-medium">
+                    <span className="text-primary font-bold">Benefit:</span> {item.benefit}
+                  </p>
                 </div>
               </motion.article>
             );

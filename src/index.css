@@ -110,6 +110,14 @@
 
 @layer components {
   .container-tight { @apply mx-auto w-full max-w-6xl px-6; }
+  
+  .section-container {
+    @apply relative py-24 md:py-32 border-b border-border/50;
+  }
+
+  .label-high-contrast {
+    @apply mono mb-3 inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/60;
+  }
 
   .text-gradient {
     background: var(--gradient-text);
