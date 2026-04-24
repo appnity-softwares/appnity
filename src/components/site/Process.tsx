@@ -46,7 +46,7 @@ export const Process = () => {
       <div className="container-tight">
         <div className="mb-10 max-w-2xl">
           <span className="label-high-contrast">How we work</span>
-          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
             A high-transparency process
             <br />
             <span className="text-brand-gradient">built on trust and results.</span>
@@ -74,7 +74,7 @@ export const Process = () => {
 
                 <h3 className="text-base font-bold tracking-tight text-foreground">{s.title}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{s.description}</p>
-                
+
                 <div className="mt-4 pt-4 border-t border-border/50">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
                     {s.highlight}

@@ -48,16 +48,16 @@ const projects = [
 
 export const CaseStudies = () => {
   return (
-    <section id="portfolio" className="relative h-screen flex items-center overflow-hidden border-b border-border/50 bg-background">
+    <section id="portfolio" className="relative min-h-screen py-20 md:py-0 flex items-center overflow-hidden border-b border-border/50 bg-background">
       {/* Precision Grid Background */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06] grid-bg" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(59,130,246,0.02),transparent_70%)]" />
-      
+
       <div className="container-tight relative z-10 w-full flex flex-col md:flex-row gap-8 lg:gap-12 px-6">
-        
+
         {/* Left Sidebar: The Authority (25-30% Width) */}
-        <div className="md:w-1/3 lg:w-1/4 flex flex-col justify-center border-r border-border/40 dark:border-white/5 pr-8">
-          <motion.div 
+        <div className="w-full md:w-1/3 lg:w-1/4 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border/40 dark:border-white/5 pb-8 md:pb-0 pr-0 md:pr-8">
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 mb-4"
@@ -65,13 +65,13 @@ export const CaseStudies = () => {
             <div className="h-px w-6 bg-primary" />
             <span className="mono text-[10px] font-bold uppercase tracking-[0.4em] text-primary">Portfolio</span>
           </motion.div>
-          
+
           <h2 className="text-3xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
-            Selected 
+            Selected
             <br />
             <span className="text-brand-gradient">Works.</span>
           </h2>
-          
+
           <p className="text-[11px] leading-relaxed text-muted-foreground/60 dark:text-muted-foreground/40 mb-8 max-w-[200px]">
             Every deployment is a benchmark in speed, security, and absolute precision.
           </p>
@@ -103,7 +103,7 @@ export const CaseStudies = () => {
                   <span className="mono text-[7px] font-bold uppercase tracking-widest text-muted-foreground/40 dark:text-muted-foreground/30 bg-surface-2 dark:bg-white/5 px-2 py-0.5 rounded border border-border-strong/40 dark:border-white/5">
                     {p.stack}
                   </span>
-                  <a 
+                  <a
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -127,7 +127,7 @@ export const CaseStudies = () => {
               </div>
 
               <div className="mt-4 pt-3 border-t border-border/40 dark:border-white/5 flex items-center justify-between">
-                <a 
+                <a
                   href={p.url}
                   className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300 hover:text-primary transition-colors"
                 >

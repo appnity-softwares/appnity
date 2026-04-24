@@ -9,7 +9,8 @@ const stats = [
 ];
 
 const logos = [
-  "Crova", "Chhatisgarh Shadi", "GrowthHub", "Mitaan Express",
+  "Heritage Realty", "Sai Logistics", "Edutech India", "Vertex Solutions", "Nexus Digital",
+  "Cloud9 Systems", "Prism Craft", "Horizon Tech", "Core Logistics", "Aura Designs",
 ];
 
 export const TrustStrip = () => {

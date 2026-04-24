@@ -26,13 +26,13 @@ const testimonials = [
 
 export const Testimonials = () => {
   return (
-    <section id="testimonials" className="relative h-screen flex flex-col justify-center overflow-hidden border-t border-border/50 bg-background py-16">
+    <section id="testimonials" className="relative min-h-screen flex flex-col justify-center overflow-hidden border-t border-border/50 bg-background py-16 md:py-24">
       {/* Precision Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] grid-bg" />
-      
+
       <div className="container-tight relative z-10 px-6">
         <div className="mb-12 text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 mb-4"
@@ -42,7 +42,7 @@ export const Testimonials = () => {
             <div className="h-px w-6 bg-primary/30" />
           </motion.div>
           <h2 className="text-3xl font-bold tracking-tight md:text-5xl text-foreground">
-            Success stories from 
+            Success stories from
             <br />
             <span className="text-brand-gradient">partners who trust us.</span>
           </h2>

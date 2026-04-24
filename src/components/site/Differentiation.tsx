@@ -44,7 +44,7 @@ export const Differentiation = () => {
 
         <div className="overflow-hidden rounded-[2rem] border border-border-strong bg-card shadow-xl">
           {/* Header */}
-          <div className="grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-5 label-high-contrast text-muted-foreground mb-0">
+          <div className="hidden md:grid grid-cols-12 border-b border-border-strong bg-surface-2 px-6 py-5 label-high-contrast text-muted-foreground mb-0">
             <div className="col-span-4">Feature</div>
             <div className="col-span-4 px-4">Other Agencies</div>
             <div className="col-span-4 px-4 text-primary">Appnity Advantage</div>
@@ -63,20 +63,30 @@ export const Differentiation = () => {
               <div className="col-span-12 px-6 py-5 text-sm font-bold tracking-tight md:col-span-4 border-r border-border-strong/50">
                 {r.point}
               </div>
-              
-              <div className="col-span-12 px-10 py-5 text-xs text-muted-foreground/70 md:col-span-4 md:border-r border-border-strong/50 flex items-start gap-3 italic">
-                <X size={14} className="mt-0.5 shrink-0 text-red-500/50" />
-                {r.them}
+
+              <div className="col-span-12 px-10 py-5 text-xs text-muted-foreground/70 md:col-span-4 md:border-r border-border-strong/50 flex flex-col items-start gap-1 md:flex-row md:gap-3 italic">
+                <div className="flex items-start gap-3">
+                  <X size={14} className="mt-0.5 shrink-0 text-red-500/50" />
+                  <div>
+                    <span className="md:hidden font-bold uppercase tracking-widest text-[8px] mb-1 block not-italic">Other Agencies</span>
+                    {r.them}
+                  </div>
+                </div>
               </div>
-              
-              <div className="col-span-12 px-10 py-5 text-xs font-medium text-foreground md:col-span-4 flex items-start gap-3">
-                <Check size={16} className="mt-0.5 shrink-0 text-primary" />
-                {r.us}
+
+              <div className="col-span-12 px-10 py-5 text-xs font-medium text-foreground md:col-span-4 flex flex-col items-start gap-1 md:flex-row md:gap-3">
+                <div className="flex items-start gap-3">
+                  <Check size={16} className="mt-0.5 shrink-0 text-primary" />
+                  <div>
+                    <span className="md:hidden font-bold uppercase tracking-widest text-[8px] mb-1 block text-primary">Appnity Advantage</span>
+                    {r.us}
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
-        
+
         <p className="mt-10 text-center text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
           We focus on building long-term value, not just short-term fixes.
         </p>

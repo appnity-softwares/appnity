@@ -17,7 +17,7 @@ import { SEO } from "@/components/site/SEO";
 const Index = () => {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <SEO 
+      <SEO
         title="Engineering-grade software"
         description="Appnity Softwares ships high-performance web platforms, scalable backends, and AI systems for startups and businesses."
       />

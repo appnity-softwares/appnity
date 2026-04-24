@@ -1,13 +1,13 @@
-import { 
-  Users, BookOpen, Layers, School, Building2, ShoppingCart, 
+import {
+  Users, BookOpen, Layers, School, Building2, ShoppingCart,
   ArrowRight, Cpu, ShieldCheck, Zap, BarChart3, Database,
   Layout, Smartphone, Server
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogoLoop } from "@/components/ui/LogoLoop";
-import { 
-  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
-  SiNodedotjs, SiPostgresql, SiFramer, SiGo, 
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss,
+  SiNodedotjs, SiPostgresql, SiFramer, SiGo,
   SiDocker, SiGooglecloud, SiOpenai, SiFigma,
   SiVercel, SiSupabase, SiPython, SiRedis
 } from 'react-icons/si';
@@ -106,18 +106,18 @@ const techRow2 = [
 
 export const Solutions = () => {
   return (
-    <section id="solutions" className="relative h-screen flex flex-col overflow-hidden border-b border-border/50 bg-background py-10 md:py-14">
+    <section id="solutions" className="relative min-h-screen flex flex-col overflow-hidden border-b border-border/50 bg-background py-12 md:py-24">
       {/* 1. Background System - "The Digital Drafting Table" */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.08] grid-bg" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),transparent_70%)]" />
       </div>
-      
+
       <div className="container-tight relative z-10 h-full flex flex-col px-6">
-        
+
         {/* 2. Header Area - Benefit Driven */}
         <div className="text-center mb-8 flex-none">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 mb-3"
@@ -126,21 +126,21 @@ export const Solutions = () => {
             <span className="mono text-[10px] font-bold uppercase tracking-[0.4em] text-primary/70">Our Expertise • Your Growth</span>
             <div className="h-px w-8 bg-primary/30" />
           </motion.div>
-          
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.1] mb-3">
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.1] mb-3">
             Business solutions,
             <br />
             <span className="text-brand-gradient">built for your success.</span>
           </h2>
-          
+
           <p className="text-xs md:text-sm text-muted-foreground/60 dark:text-muted-foreground/40 max-w-xl mx-auto leading-relaxed">
-            We help you automate manual work and grow your revenue with professional, 
+            We help you automate manual work and grow your revenue with professional,
             high-performance software tailored to your specific industry.
           </p>
         </div>
 
         {/* 3. The Blueprint Grid - Maximum Clarity */}
-        <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {solutions.map((s, idx) => (
             <motion.div
               key={s.title}
@@ -170,7 +170,7 @@ export const Solutions = () => {
                 <div className="flex items-center gap-2 mb-2">
                   <h3 className="text-[16px] font-bold tracking-tight text-foreground dark:text-zinc-200 group-hover:text-primary transition-colors">{s.title}</h3>
                 </div>
-                
+
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-green-50/50 dark:bg-green-500/10 text-green-700 dark:text-green-400 text-[9px] font-bold mb-4 border border-green-100/50 dark:border-green-500/20 italic">
                   <div className="h-1 w-1 rounded-full bg-green-500 animate-pulse" />
                   {s.benefit}
@@ -179,7 +179,7 @@ export const Solutions = () => {
                 <p className="text-[11px] leading-snug text-muted-foreground/80 dark:text-muted-foreground/50 mb-4">
                   {s.description}
                 </p>
-                
+
                 <div className="space-y-2.5 border-t border-border/40 dark:border-white/5 pt-4">
                   <div className="flex flex-wrap gap-1.5">
                     {s.features.map(f => (

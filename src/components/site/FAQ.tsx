@@ -36,7 +36,7 @@ export const FAQ = () => {
           <div>
             <span className="label-high-contrast">Common Questions</span>
             <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
-              Everything you need to 
+              Everything you need to
               <br />
               <span className="text-brand-gradient">know before starting.</span>
             </h2>
@@ -44,7 +44,7 @@ export const FAQ = () => {
               We believe in radical transparency. If you have a question that isn't answered here, feel free to reach out directly.
             </p>
           </div>
-          
+
           <div className="rounded-3xl border border-border-strong bg-card p-8 shadow-sm">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, i) => (

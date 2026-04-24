@@ -56,13 +56,13 @@ export const Pricing = () => {
         <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl text-center md:text-left">
             <span className="mono text-[10px] font-bold uppercase tracking-[0.3em] text-primary bg-primary/5 px-3 py-1 rounded">Commercials</span>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl text-foreground">
-              Accessible pricing. 
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-foreground">
+              Accessible pricing.
               <br />
               <span className="text-muted-foreground">Engineering for everyone.</span>
             </h2>
           </div>
-          
+
           <div className="flex flex-col items-center md:items-end gap-2">
             <div className="rounded-lg border border-border-strong bg-surface-1 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
               GST 18% as applicable
@@ -72,27 +72,26 @@ export const Pricing = () => {
 
         <div className="grid gap-6 md:grid-cols-3">
           {tiers.map((t, i) => (
-            <motion.div 
+            <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className={`relative flex flex-col rounded-2xl border border-border-strong bg-surface-1 p-8 transition-all hover:border-border hover:shadow-sm group ${
-                t.accent ? "border-primary/40 bg-white shadow-sm ring-1 ring-primary/10" : ""
-              }`}
+              className={`relative flex flex-col rounded-2xl border border-border-strong bg-surface-1 p-8 transition-all hover:border-border hover:shadow-sm group ${t.accent ? "border-primary/40 bg-white shadow-sm ring-1 ring-primary/10" : ""
+                }`}
             >
               {t.accent && (
                 <div className="absolute -top-3 left-6 rounded-md bg-primary px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-primary-foreground shadow-sm">
                   Best Value
                 </div>
               )}
-              
+
               <div className="mb-8">
                 <h3 className="text-xl font-bold tracking-tight text-foreground">{t.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed h-10 opacity-80">{t.desc}</p>
               </div>
-              
+
               <div className="mb-10 border-b border-border/50 pb-8">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-bold tracking-tight text-foreground">{t.price}</span>
@@ -109,13 +108,12 @@ export const Pricing = () => {
                 ))}
               </ul>
 
-              <a 
-                href="#contact" 
-                className={`mt-10 flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs font-bold transition-all ${
-                  t.accent 
-                    ? "bg-primary text-primary-foreground shadow-glow hover:bg-primary/90" 
+              <a
+                href="#contact"
+                className={`mt-10 flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs font-bold transition-all ${t.accent
+                    ? "bg-primary text-primary-foreground shadow-glow hover:bg-primary/90"
                     : "border border-border-strong bg-white hover:bg-surface-2"
-                }`}
+                  }`}
               >
                 {t.cta}
                 <ArrowRight size={16} />

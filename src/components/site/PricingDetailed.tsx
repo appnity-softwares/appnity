@@ -128,7 +128,7 @@ export const PricingDetailed = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="grid gap-6 md:grid-cols-3"
+              className="grid grid-cols-1 gap-6 md:grid-cols-3"
             >
               {tiers.map((t) => (
                 <div 
@@ -183,7 +183,7 @@ export const PricingDetailed = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="grid gap-10 lg:grid-cols-12"
+              className="grid grid-cols-1 gap-10 lg:grid-cols-12"
             >
               <div className="lg:col-span-8 space-y-12">
                 {/* Platform Selection */}
@@ -281,8 +281,7 @@ export const PricingDetailed = () => {
                 </div>
               </div>
 
-              {/* Estimate Summary */}
-              <div className="lg:col-span-4">
+              <div className="lg:col-span-4 mt-8 lg:mt-0">
                 <div className="sticky top-32 rounded-3xl border border-border-strong bg-surface-1 p-8 shadow-sm">
                   <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Estimated Investment</h4>
                   <div className="mt-6 flex items-baseline gap-2">

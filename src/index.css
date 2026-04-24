@@ -96,12 +96,23 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
-    font-size: 115%; /* Enhanced base zoom */
-    zoom: 1.2; /* Emulating 120-130% browser zoom */
+    font-size: 16px;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      font-size: 18px;
+    }
   }
 
   body {
-    @apply bg-background text-foreground font-sans min-h-screen;
+    @apply bg-background text-foreground font-sans min-h-screen overflow-x-hidden;
     font-feature-settings: "ss01", "cv11";
   }
 
@@ -109,7 +120,7 @@
 }
 
 @layer components {
-  .container-tight { @apply mx-auto w-full max-w-6xl px-6; }
+  .container-tight { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
   
   .section-container {
     @apply relative py-24 md:py-32 border-b border-border/50;

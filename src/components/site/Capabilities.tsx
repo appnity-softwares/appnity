@@ -58,7 +58,7 @@ export const Capabilities = () => {
       <div className="container-tight">
         <div className="mb-8 max-w-2xl">
           <span className="label-high-contrast">Our Expertise</span>
-          <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
             Technical mastery applied
             <br />
             <span className="text-brand-gradient">to your specific industry.</span>
@@ -85,10 +85,10 @@ export const Capabilities = () => {
                     {item.idealFor}
                   </span>
                 </div>
-                
+
                 <h3 className="text-base font-bold tracking-tight text-foreground">{item.title}</h3>
                 <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground line-clamp-2">{item.description}</p>
-                
+
                 <div className="mt-4 flex flex-wrap gap-1">
                   {item.stack.map((s) => (
                     <span
