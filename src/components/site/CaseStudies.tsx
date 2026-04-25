@@ -1,51 +1,34 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, Smartphone, Globe, ShoppingBag, Newspaper } from "lucide-react";
+import { publicApi } from "@/services/api";
 
-const projects = [
-  {
-    title: "Chhattisgarh Shadi",
-    category: "Mobile Application",
-    stack: "React Native CLI",
-    description: "A community-focused matrimonial platform built for Chhattisgarh. Features real-time matching, profile verification, and secure chat.",
-    icon: Smartphone,
-    color: "bg-rose-50",
-    textColor: "text-rose-600",
-    url: "https://chhattisgarhshadi.com",
-  },
-  {
-    title: "Mitaan Express",
-    category: "News Portal",
-    stack: "React / Node.js",
-    description: "High-performance news website for Shri Dhar Rao. Real-time content updates, intuitive categorization, and optimized for speed.",
-    icon: Newspaper,
-    color: "bg-blue-50",
-    textColor: "text-blue-600",
-    url: "https://mitaanexpress.com",
-  },
-  {
-    title: "Shri Dhar Rao Portfolio",
-    category: "Personal Brand",
-    stack: "React / Tailwind",
-    description: "Official professional portfolio for Shri Dhar Rao. A minimal, authority-driven design showcasing personal and political achievements.",
-    icon: Globe,
-    color: "bg-slate-50",
-    textColor: "text-slate-700",
-    url: "https://shridharrao.com",
-  },
-  {
-    title: "Crova",
-    category: "Premium Showcase",
-    stack: "React / Tailwind",
-    description: "A high-end boutique showcase for handcrafted embroidery and apparel. Built with a focus on minimal design and heritage craftsmanship.",
-    icon: ShoppingBag,
-    color: "bg-amber-50",
-    textColor: "text-amber-700",
-    url: "https://crova.in",
-  },
-];
+const iconMap: any = {
+  Smartphone: Smartphone,
+  Globe: Globe,
+  ShoppingBag: ShoppingBag,
+  Newspaper: Newspaper,
+};
 
 export const CaseStudies = () => {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await publicApi.getFeaturedPortfolios();
+        setProjects(data || []);
+      } catch (error) {
+        console.error("Failed to fetch portfolios:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <section id="portfolio" className="relative min-h-screen py-20 md:py-0 flex items-center overflow-hidden border-b border-border/50 bg-background">
       {/* Precision Grid Background */}
@@ -78,7 +61,7 @@ export const CaseStudies = () => {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border-strong dark:border-white/5 bg-surface-1 dark:bg-zinc-900/50 w-fit">
               <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-              <span className="mono text-[9px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300">6+ Active Systems</span>
+              <span className="mono text-[9px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300">{projects.length}+ Active Systems</span>
             </div>
 
             <Link
@@ -95,66 +78,48 @@ export const CaseStudies = () => {
 
         {/* Right Grid: The Proof (70-75% Width) */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 h-full py-4">
-          {projects.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative flex flex-col rounded-xl border border-border-strong dark:border-white/5 bg-white/70 dark:bg-zinc-900/30 backdrop-blur-sm p-4 lg:p-5 transition-all hover:border-primary/30 dark:hover:border-primary/40 hover:shadow-elevated dark:hover:bg-zinc-900/50 overflow-hidden"
-            >
-              {/* Compact Card Header */}
-              <div className="flex items-start justify-between mb-3">
-                <div className={`p-2.5 rounded-lg ${p.color} ${p.textColor} dark:bg-opacity-10 dark:text-opacity-90 border border-black/5 dark:border-white/5`}>
-                  <p.icon size={18} strokeWidth={2} />
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="mono text-[7px] font-bold uppercase tracking-widest text-muted-foreground/40 dark:text-muted-foreground/30 bg-surface-2 dark:bg-white/5 px-2 py-0.5 rounded border border-border-strong/40 dark:border-white/5">
-                    {p.stack}
-                  </span>
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-border-strong dark:border-white/10 bg-white dark:bg-zinc-900 shadow-sm transition-all hover:bg-primary hover:text-white"
-                  >
-                    <ArrowUpRight size={12} />
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-primary/70 mb-0.5 block italic">
-                  {p.category}
-                </span>
-                <h3 className="text-[15px] font-bold tracking-tight text-foreground dark:text-zinc-200 group-hover:text-primary transition-colors">
-                  {p.title}
-                </h3>
-                <p className="mt-1.5 text-[10px] leading-snug text-muted-foreground/80 dark:text-muted-foreground/50 line-clamp-2">
-                  {p.description}
-                </p>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-border/40 dark:border-white/5 flex items-center justify-between">
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300 hover:text-primary transition-colors"
+          {loading ? (
+            [1, 2, 3, 4].map(i => (
+              <div key={i} className="animate-pulse h-64 rounded-2xl bg-zinc-100" />
+            ))
+          ) : (
+            projects.map((p, i) => {
+              const Icon = iconMap[p.category === 'Mobile Application' ? 'Smartphone' : p.category === 'News Portal' ? 'Newspaper' : 'Globe'] || Globe;
+              return (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group relative h-full flex flex-col p-8 rounded-2xl border border-border-strong bg-white/50 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:border-primary/20 hover:shadow-elevated"
                 >
-                  Visit Website
-                  <ArrowUpRight size={12} className="opacity-40" />
-                </a>
-                <div className="flex items-center gap-1.5">
-                  <div className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
-                  <span className="mono text-[8px] font-bold text-muted-foreground/40 dark:text-muted-foreground/30 uppercase">Live System</span>
-                </div>
-              </div>
+                  <div className="mb-6 flex items-start justify-between">
+                    <div className="h-12 w-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                      <Icon size={22} />
+                    </div>
+                    {p.project_url && (
+                      <a href={p.project_url} target="_blank" rel="noreferrer" className="opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 text-muted-foreground">
+                        <ArrowUpRight size={18} />
+                      </a>
+                    )}
+                  </div>
 
-              {/* Decorative Accent */}
-              <div className={`absolute -bottom-4 -right-4 w-12 h-12 ${p.color} opacity-[0.05] dark:opacity-[0.1] rounded-full blur-xl group-hover:opacity-10 transition-opacity`} />
-            </motion.div>
-          ))}
+                  <div className="flex-1">
+                    <span className="mono text-[8px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2 block">{p.category}</span>
+                    <h3 className="text-xl font-bold tracking-tight text-foreground mb-3">{p.title}</h3>
+                    <p className="text-xs leading-relaxed text-muted-foreground/80 line-clamp-3">
+                      {p.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 flex items-center justify-between pt-6 border-t border-border/40 dark:border-white/5">
+                    <span className="mono text-[9px] font-bold text-muted-foreground/40">{p.metrics?.stack || "Custom Build"}</span>
+                    <Link to={`/portfolio/${p.slug}`} className="text-[10px] font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors">Case Study</Link>
+                  </div>
+                </motion.div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>

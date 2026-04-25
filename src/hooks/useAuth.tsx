@@ -1,76 +1,66 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Session, User } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
+import { adminApi } from "@/services/api";
 
 interface AuthContextValue {
-  user: User | null;
-  session: Session | null;
+  user: any | null;
   loading: boolean;
   isAdmin: boolean;
-  signOut: () => Promise<void>;
+  signOut: () => void;
+  signIn: (credentials: any) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
-  session: null,
   loading: true,
   isAdmin: false,
-  signOut: async () => {},
+  signOut: () => {},
+  signIn: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        // Defer to avoid deadlock
-        setTimeout(async () => {
-          const { data } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", s.user.id)
-            .eq("role", "admin")
-            .maybeSingle();
-          setIsAdmin(!!data);
-        }, 0);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", s.user.id)
-          .eq("role", "admin")
-          .maybeSingle()
-          .then(({ data }) => setIsAdmin(!!data));
-      }
+  const checkAuth = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
       setLoading(false);
-    });
+      return;
+    }
 
-    return () => sub.subscription.unsubscribe();
+    try {
+      const userData = await adminApi.getMe();
+      setUser(userData);
+      setIsAdmin(userData.role === 'admin' || userData.role === 'super_admin');
+    } catch (error) {
+      console.error("Auth check failed:", error);
+      localStorage.removeItem('token');
+      setUser(null);
+      setIsAdmin(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setSession(null);
+  const signIn = async (credentials: any) => {
+    const data = await adminApi.login(credentials);
+    localStorage.setItem('token', data.access_token);
+    await checkAuth();
+  };
+
+  const signOut = () => {
+    localStorage.removeItem('token');
     setUser(null);
     setIsAdmin(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, isAdmin, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin, signOut, signIn }}>
       {children}
     </AuthContext.Provider>
   );

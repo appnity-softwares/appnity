@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FolderKanban, Inbox, Users } from "lucide-react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { adminApi } from "@/services/api";
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -11,13 +11,21 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     document.title = "Admin · Appnity";
-    Promise.all([
-      supabase.from("projects").select("*", { count: "exact", head: true }),
-      supabase.from("team_members").select("*", { count: "exact", head: true }),
-      supabase.from("leads").select("*", { count: "exact", head: true }),
-    ]).then(([p, t, l]) => {
-      setCounts({ projects: p.count || 0, team: t.count || 0, leads: l.count || 0 });
-    });
+    const fetchStats = async () => {
+      try {
+        const stats = await adminApi.getDashboardStats();
+        // Assuming stats returns something like { projects: X, team: Y, leads: Z }
+        // Note: I might need to adjust based on exact backend response
+        setCounts({ 
+          projects: stats.total_portfolios || 0, 
+          team: stats.total_team_members || 0, 
+          leads: stats.total_contacts || 0 
+        });
+      } catch (error) {
+        console.error("Failed to fetch dashboard stats:", error);
+      }
+    };
+    fetchStats();
   }, []);
 
   const cards = [

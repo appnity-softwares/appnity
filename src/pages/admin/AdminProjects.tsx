@@ -1,58 +1,64 @@
 import { useEffect, useState } from "react";
-import { Loader2, Plus, Trash2, X } from "lucide-react";
+import { Loader2, Plus, Trash2, X, Edit2 } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { supabase } from "@/integrations/supabase/client";
+import { adminApi } from "@/services/api";
 
 interface Project {
   id: string;
   slug: string;
   title: string;
-  tagline: string;
-  client: string;
+  description: string;
+  tagline?: string;
+  category: string;
+  client_name: string;
+  project_url: string;
   industry: string;
   year: number;
+  stack: string;
   problem: string;
-  approach: string[];
-  outcomes: { metric: string; label: string }[];
-  stack: string[];
-  featured: boolean;
-  sort_order: number;
+  approach: string[] | any;
+  metrics: { metric: string; label: string }[] | any;
+  is_featured: boolean;
+  order_index: number;
 }
 
 const empty = {
+  id: "",
   slug: "",
   title: "",
-  tagline: "",
-  client: "",
+  description: "",
+  category: "",
+  client_name: "",
+  project_url: "",
   industry: "",
   year: new Date().getFullYear(),
-  problem: "",
-  approach: "",
-  outcomes: "",
   stack: "",
-  featured: false,
-  sort_order: 0,
+  problem: "",
+  approach: "", // Textarea input as newline separated
+  metrics: "",  // Textarea input as metric|label
+  is_featured: false,
+  order_index: 0,
 };
 
 const AdminProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(empty);
   const [saving, setSaving] = useState(false);
 
-  const load = () => {
+  const load = async () => {
     setLoading(true);
-    supabase
-      .from("projects")
-      .select("*")
-      .order("sort_order")
-      .then(({ data, error }) => {
-        if (error) toast.error(error.message);
-        setProjects((data as unknown as Project[]) || []);
-        setLoading(false);
-      });
+    try {
+      const data = await adminApi.getPortfolios();
+      setProjects(data || []);
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || "Failed to load projects");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -60,44 +66,86 @@ const AdminProjects = () => {
     load();
   }, []);
 
+  const openEdit = (p: Project) => {
+    setEditingId(p.id);
+    setForm({
+      ...empty,
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      description: p.description,
+      category: p.category,
+      client_name: p.client_name,
+      project_url: p.project_url,
+      industry: p.industry,
+      year: p.year,
+      stack: p.stack,
+      problem: p.problem,
+      approach: Array.isArray(p.approach) ? p.approach.join("\n") : "",
+      metrics: Array.isArray(p.metrics) 
+        ? p.metrics.map((m: any) => `${m.metric}|${m.label}`).join("\n") 
+        : "",
+      is_featured: p.is_featured,
+      order_index: p.order_index,
+    });
+    setOpen(true);
+  };
+
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    
     const payload = {
       slug: form.slug.trim(),
       title: form.title.trim(),
-      tagline: form.tagline.trim(),
-      client: form.client.trim(),
+      description: form.description.trim(),
+      category: form.category.trim(),
+      client_name: form.client_name.trim(),
+      project_url: form.project_url.trim(),
       industry: form.industry.trim(),
       year: Number(form.year),
+      stack: form.stack.trim(),
       problem: form.problem.trim(),
       approach: form.approach.split("\n").map((s) => s.trim()).filter(Boolean),
-      outcomes: form.outcomes
+      metrics: form.metrics
         .split("\n")
-        .map((line) => {
+        .map((line: string) => {
           const [metric, ...rest] = line.split("|");
           return { metric: (metric || "").trim(), label: rest.join("|").trim() };
         })
-        .filter((o) => o.metric && o.label),
-      stack: form.stack.split(",").map((s) => s.trim()).filter(Boolean),
-      featured: form.featured,
-      sort_order: Number(form.sort_order),
+        .filter((o: any) => o.metric && o.label),
+      is_featured: form.is_featured,
+      order_index: Number(form.order_index),
     };
-    const { error } = await supabase.from("projects").insert(payload);
-    setSaving(false);
-    if (error) return toast.error(error.message);
-    toast.success("Project added");
-    setOpen(false);
-    setForm(empty);
-    load();
+
+    try {
+      if (editingId) {
+        await adminApi.updatePortfolio(editingId, payload);
+        toast.success("Project updated");
+      } else {
+        await adminApi.createPortfolio(payload);
+        toast.success("Project added");
+      }
+      setOpen(false);
+      setForm(empty);
+      setEditingId(null);
+      load();
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || "Save failed");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this project?")) return;
-    const { error } = await supabase.from("projects").delete().eq("id", id);
-    if (error) return toast.error(error.message);
-    toast.success("Deleted");
-    setProjects((p) => p.filter((x) => x.id !== id));
+    try {
+      await adminApi.deletePortfolio(id);
+      toast.success("Deleted");
+      setProjects((p) => p.filter((x) => x.id !== id));
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || "Delete failed");
+    }
   };
 
   return (
@@ -108,7 +156,11 @@ const AdminProjects = () => {
           <h1 className="mt-2 text-3xl font-semibold tracking-tight">Projects</h1>
         </div>
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setEditingId(null);
+            setForm(empty);
+            setOpen(true);
+          }}
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow hover:scale-[1.02] transition-transform"
         >
           <Plus className="h-4 w-4" /> New project
@@ -125,33 +177,44 @@ const AdminProjects = () => {
             <thead className="bg-surface-2 text-left">
               <tr>
                 <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Title</th>
-                <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Slug</th>
+                <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Category</th>
+                <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Industry</th>
                 <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Year</th>
                 <th className="mono px-4 py-3 text-xs uppercase tracking-widest text-muted-foreground">Featured</th>
-                <th className="px-4 py-3" />
+                <th className="px-4 py-3 text-right" />
               </tr>
             </thead>
             <tbody>
               {projects.map((p) => (
                 <tr key={p.id} className="border-t border-border">
                   <td className="px-4 py-3 font-medium">{p.title}</td>
-                  <td className="px-4 py-3 mono text-xs text-muted-foreground">{p.slug}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{p.category}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{p.industry}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.year}</td>
-                  <td className="px-4 py-3">{p.featured ? "✓" : "—"}</td>
+                  <td className="px-4 py-3">{p.is_featured ? "✓" : "—"}</td>
                   <td className="px-4 py-3 text-right">
-                    <button
-                      onClick={() => remove(p.id)}
-                      className="text-muted-foreground hover:text-destructive"
-                      aria-label="Delete"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={() => openEdit(p)}
+                        className="text-muted-foreground hover:text-primary"
+                        aria-label="Edit"
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => remove(p.id)}
+                        className="text-muted-foreground hover:text-destructive"
+                        aria-label="Delete"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
               {projects.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="p-10 text-center text-muted-foreground">
+                  <td colSpan={6} className="p-10 text-center text-muted-foreground">
                     No projects yet.
                   </td>
                 </tr>
@@ -168,7 +231,7 @@ const AdminProjects = () => {
             className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border-strong bg-background p-6 shadow-elevated"
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">New project</h2>
+              <h2 className="text-xl font-semibold">{editingId ? "Edit project" : "New project"}</h2>
               <button type="button" onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground">
                 <X className="h-5 w-5" />
               </button>
@@ -177,38 +240,38 @@ const AdminProjects = () => {
             <div className="grid gap-4 md:grid-cols-2">
               <Field label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} required />
               <Field label="Slug (url)" value={form.slug} onChange={(v) => setForm({ ...form, slug: v })} required />
-              <Field label="Client" value={form.client} onChange={(v) => setForm({ ...form, client: v })} required />
+              <Field label="Client Name" value={form.client_name} onChange={(v) => setForm({ ...form, client_name: v })} required />
+              <Field label="Project URL" value={form.project_url} onChange={(v) => setForm({ ...form, project_url: v })} />
+              <Field label="Category (e.g. Mobile App)" value={form.category} onChange={(v) => setForm({ ...form, category: v })} required />
               <Field label="Industry" value={form.industry} onChange={(v) => setForm({ ...form, industry: v })} required />
               <Field label="Year" type="number" value={String(form.year)} onChange={(v) => setForm({ ...form, year: Number(v) })} required />
-              <Field label="Sort order" type="number" value={String(form.sort_order)} onChange={(v) => setForm({ ...form, sort_order: Number(v) })} />
+              <Field label="Sort order" type="number" value={String(form.order_index)} onChange={(v) => setForm({ ...form, order_index: Number(v) })} />
             </div>
 
             <div className="mt-4">
-              <Field label="Tagline" value={form.tagline} onChange={(v) => setForm({ ...form, tagline: v })} required />
+              <Field label="Tagline (Description)" value={form.description} onChange={(v) => setForm({ ...form, description: v })} required />
             </div>
 
-            <Textarea label="Problem" value={form.problem} onChange={(v) => setForm({ ...form, problem: v })} rows={3} required />
+            <Textarea label="Problem" value={form.problem} onChange={(v) => setForm({ ...form, problem: v })} rows={3} />
             <Textarea
               label="Approach (one bullet per line)"
               value={form.approach}
               onChange={(v) => setForm({ ...form, approach: v })}
               rows={4}
-              required
             />
             <Textarea
               label="Outcomes (metric|label per line, e.g. 98%|faster load)"
-              value={form.outcomes}
-              onChange={(v) => setForm({ ...form, outcomes: v })}
+              value={form.metrics}
+              onChange={(v) => setForm({ ...form, metrics: v })}
               rows={3}
-              required
             />
             <Field label="Stack (comma-separated)" value={form.stack} onChange={(v) => setForm({ ...form, stack: v })} />
 
             <label className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
-                checked={form.featured}
-                onChange={(e) => setForm({ ...form, featured: e.target.checked })}
+                checked={form.is_featured}
+                onChange={(e) => setForm({ ...form, is_featured: e.target.checked })}
                 className="h-4 w-4 rounded border-border"
               />
               Featured on homepage
@@ -227,7 +290,7 @@ const AdminProjects = () => {
                 disabled={saving}
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-70"
               >
-                {saving && <Loader2 className="h-4 w-4 animate-spin" />} Save
+                {saving && <Loader2 className="h-4 w-4 animate-spin" />} {editingId ? "Update" : "Save"}
               </button>
             </div>
           </form>

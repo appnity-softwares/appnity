@@ -1,30 +1,26 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
-
-const testimonials = [
-  {
-    quote: "Building a custom wardrobe management system was a huge challenge. Appnity delivered a solution that is both technically robust and beautiful. Their attention to detail is exceptional.",
-    author: "Rashmeet Kaur",
-    company: "Crova",
-  },
-  {
-    quote: "For a platform as personal as matrimonial services, we needed a partner who understood both technology and trust. Appnity built a secure, high-performance system.",
-    author: "Jaideep Gupta",
-    company: "Chhatisgarh Shadi",
-  },
-  {
-    quote: "Transparent, fast, and professional. The team at Appnity feels like an extension of our own engineering department. They truly architect excellence.",
-    author: "Prateek Tatode",
-    company: "GrowthHub",
-  },
-  {
-    quote: "Delivering absolute precision was key for my personal brand. Appnity shipped a high-performance site that exceeds all my expectations in terms of speed and UI.",
-    author: "Mitaan Express",
-    company: "Shridhar Rao",
-  },
-];
+import { publicApi } from "@/services/api";
 
 export const Testimonials = () => {
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const data = await publicApi.getTestimonials();
+        setTestimonials(data || []);
+      } catch (error) {
+        console.error("Failed to fetch testimonials:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
+
   return (
     <section id="testimonials" className="relative min-h-screen flex flex-col justify-center overflow-hidden border-t border-border/50 bg-background py-16 md:py-24">
       {/* Precision Background Grid */}
@@ -49,30 +45,36 @@ export const Testimonials = () => {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.author}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative flex flex-col rounded-2xl border border-border-strong dark:border-white/5 bg-white/70 dark:bg-zinc-900/30 backdrop-blur-sm p-6 transition-all hover:border-primary/30 dark:hover:border-primary/40 hover:shadow-elevated h-full"
-            >
-              <Quote className="absolute -top-3 left-6 h-6 w-6 text-primary/20 fill-primary/10 transition-colors group-hover:text-primary/40" />
-              <p className="relative z-10 text-[11px] leading-relaxed text-foreground/80 dark:text-zinc-300 italic flex-1">
-                "{t.quote}"
-              </p>
-              <div className="mt-6 border-t border-border/40 dark:border-white/5 pt-4 flex items-center gap-3">
-                <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">
-                  {t.author[0]}
+          {loading ? (
+            [1, 2, 3, 4].map(i => (
+              <div key={i} className="animate-pulse h-48 rounded-2xl bg-zinc-100" />
+            ))
+          ) : (
+            testimonials.map((t, i) => (
+              <motion.div
+                key={t.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative flex flex-col rounded-2xl border border-border-strong dark:border-white/5 bg-white/70 dark:bg-zinc-900/30 backdrop-blur-sm p-6 transition-all hover:border-primary/30 dark:hover:border-primary/40 hover:shadow-elevated h-full"
+              >
+                <Quote className="absolute -top-3 left-6 h-6 w-6 text-primary/20 fill-primary/10 transition-colors group-hover:text-primary/40" />
+                <p className="relative z-10 text-[11px] leading-relaxed text-foreground/80 dark:text-zinc-300 italic flex-1">
+                  "{t.quote}"
+                </p>
+                <div className="mt-6 border-t border-border/40 dark:border-white/5 pt-4 flex items-center gap-3">
+                  <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">
+                    {t.name[0]}
+                  </div>
+                  <div>
+                    <div className="font-bold text-[12px] text-foreground dark:text-zinc-200">{t.name}</div>
+                    <div className="text-[8px] uppercase tracking-widest text-primary/70 font-bold">{t.company}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-bold text-[12px] text-foreground dark:text-zinc-200">{t.author}</div>
-                  <div className="text-[8px] uppercase tracking-widest text-primary/70 font-bold">{t.company}</div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))
+          )}
         </div>
 
         <div className="mt-12 text-center">
@@ -84,5 +86,3 @@ export const Testimonials = () => {
     </section>
   );
 };
-
-
