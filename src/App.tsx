@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index.tsx"));
-const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+import NotFound from "./pages/NotFound.tsx";
 const Portfolio = lazy(() => import("./pages/Portfolio.tsx"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy.tsx"));
 const Team = lazy(() => import("./pages/Team.tsx"));
