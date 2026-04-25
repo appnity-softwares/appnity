@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter, Target, Heart, Zap, User } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
+import { SEO } from "@/components/site/SEO";
 
 const teamMembers = [
   {
@@ -69,6 +70,10 @@ const values = [
 const Team = () => {
   return (
     <SiteLayout>
+      <SEO 
+        title="Our Team · Senior Engineering Collective" 
+        description="Meet the engineering minds behind Appnity Softwares. A dedicated collective of senior experts building high-precision software."
+      />
       <PageHeader
         eyebrow="The core team"
         title={
@@ -153,7 +158,7 @@ const Team = () => {
           <div className="mt-32 rounded-[3rem] border border-border-strong bg-surface-1 p-16 text-center shadow-elevated overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5" />
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold tracking-tight md:text-5xl">We hire rarely. We look for craft.</h2>
+              <h2 className="text-3xl font-bold tracking-tight md:text-5xl">We hire rarely. We look for technical excellence.</h2>
               <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
                 If you've shipped distributed systems, designed product surfaces that feel inevitable, or built AI
                 pipelines that hold up in production — we'd like to hear from you.

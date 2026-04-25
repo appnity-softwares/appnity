@@ -18,8 +18,8 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <SEO
-        title="Engineering-grade software"
-        description="Appnity Softwares ships high-performance web platforms, scalable backends, and AI systems for startups and businesses."
+        title="Engineering-Grade Software Studio"
+        description="We build high-performance web platforms, distributed backend architectures, and AI integrations for ambitious teams. Engineering-first, shipped fast, designed to scale."
       />
       <Nav />
       <Hero />

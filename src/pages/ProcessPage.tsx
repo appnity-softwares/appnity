@@ -1,10 +1,15 @@
 import { Process } from "@/components/site/Process";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
+import { SEO } from "@/components/site/SEO";
 
 const ProcessPage = () => {
   return (
     <SiteLayout>
+      <SEO 
+        title="Our Process · Strategy to Shipment" 
+        description="High-transparency engineering process designed for speed and precision. Learn how we turn complex ideas into measurable profit."
+      />
       <PageHeader
         eyebrow="How we work"
         title={

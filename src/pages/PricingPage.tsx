@@ -1,12 +1,17 @@
 import { Pricing } from "@/components/site/Pricing";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
+import { SEO } from "@/components/site/SEO";
 import { CTA } from "@/components/site/CTA";
 import { FAQ } from "@/components/site/FAQ";
 
 const PricingPage = () => {
   return (
     <SiteLayout>
+      <SEO 
+        title="Pricing · Transparent Investment" 
+        description="Learn about our engagement models, from fixed-project MVPs to monthly engineering retainers. Predictable costs for senior-grade output."
+      />
       <PageHeader
         eyebrow="Pricing & Engagements"
         title={

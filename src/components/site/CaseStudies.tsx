@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Smartphone, Globe, ShoppingBag, Newspaper } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, ArrowRight, Smartphone, Globe, ShoppingBag, Newspaper } from "lucide-react";
 
 const projects = [
   {
@@ -32,7 +33,6 @@ const projects = [
     textColor: "text-slate-700",
     url: "https://shridharrao.com",
   },
-
   {
     title: "Crova",
     category: "Premium Showcase",
@@ -43,7 +43,6 @@ const projects = [
     textColor: "text-amber-700",
     url: "https://crova.in",
   },
-
 ];
 
 export const CaseStudies = () => {
@@ -76,11 +75,21 @@ export const CaseStudies = () => {
             Every deployment is a benchmark in speed, security, and absolute precision.
           </p>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-6">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border-strong dark:border-white/5 bg-surface-1 dark:bg-zinc-900/50 w-fit">
               <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
               <span className="mono text-[9px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300">6+ Active Systems</span>
             </div>
+
+            <Link
+              to="/portfolio"
+              className="group flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary hover:text-primary/80 transition-all w-fit"
+            >
+              Explore Full Portfolio
+              <div className="h-8 w-8 rounded-full border border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -129,14 +138,16 @@ export const CaseStudies = () => {
               <div className="mt-4 pt-3 border-t border-border/40 dark:border-white/5 flex items-center justify-between">
                 <a
                   href={p.url}
-                  className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300 hover:text-primary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-foreground dark:text-zinc-300 hover:text-primary transition-colors"
                 >
-                  View Case
-                  <ArrowUpRight size={10} className="opacity-40" />
+                  Visit Website
+                  <ArrowUpRight size={12} className="opacity-40" />
                 </a>
-                <div className="flex items-center gap-1">
-                  <div className="h-1 w-1 rounded-full bg-green-500" />
-                  <span className="mono text-[7px] font-bold text-muted-foreground/40 dark:text-muted-foreground/30 uppercase">Production Ready</span>
+                <div className="flex items-center gap-1.5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
+                  <span className="mono text-[8px] font-bold text-muted-foreground/40 dark:text-muted-foreground/30 uppercase">Live System</span>
                 </div>
               </div>
 
@@ -147,8 +158,5 @@ export const CaseStudies = () => {
         </div>
       </div>
     </section>
-
   );
 };
-
-

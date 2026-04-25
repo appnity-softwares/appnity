@@ -5,6 +5,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import logo from "@/assets/appnity-logo.png";
 
 const links = [
+  { to: "/about", label: "About" },
   { to: "/capabilities", label: "Capabilities" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/team", label: "Team" },

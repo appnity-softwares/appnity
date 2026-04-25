@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Layout, ShieldAlert, Cpu } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { SEO } from "@/components/site/SEO";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Project {
@@ -33,7 +34,6 @@ const CaseStudy = () => {
       .then(({ data }) => {
         setProject(data as unknown as Project | null);
         setLoading(false);
-        if (data) document.title = `${(data as { title: string }).title} · Appnity`;
       });
   }, [slug]);
 
@@ -63,6 +63,10 @@ const CaseStudy = () => {
 
   return (
     <SiteLayout>
+      <SEO 
+        title={`${project.title} · Case Study`} 
+        description={project.tagline} 
+      />
       <article className="relative pt-36 pb-24 md:pt-44 noise">
         <div className="pointer-events-none absolute inset-0 bg-gradient-mesh opacity-60" aria-hidden />
         <div className="container-tight relative flex flex-col items-center text-center">

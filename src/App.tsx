@@ -19,6 +19,7 @@ const PricingPage = lazy(() => import("./pages/PricingPage.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const CapabilitiesPage = lazy(() => import("./pages/CapabilitiesPage.tsx"));
 const Auth = lazy(() => import("./pages/Auth.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
 
 // Admin pages are heavy, definitely lazy load these
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard.tsx"));
@@ -45,16 +46,20 @@ const PageLoader = () => (
   </div>
 );
 
+import { ScrollToTop } from "@/components/site/ScrollToTop";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
               <Route path="/capabilities" element={<CapabilitiesPage />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/work/:slug" element={<CaseStudy />} />
