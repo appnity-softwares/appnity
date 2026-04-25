@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle2, MessageSquare } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { publicApi } from "@/services/api";
 import { useToast } from "@/hooks/use-toast";
 
 export const CTA = () => {
@@ -16,12 +16,13 @@ export const CTA = () => {
     setLoading(true);
     
     try {
-      const { error } = await supabase
-        .from("leads")
-        .insert([{ email, message, source: "footer_cta" }]);
+      await publicApi.submitContact({
+        email,
+        message,
+        name: "Website Visitor", // Default since form doesn't have name field
+        service: "General Inquiry" // Default since form doesn't have service field
+      });
 
-      if (error) throw error;
-      
       setSuccess(true);
       toast({
         title: "Message sent",

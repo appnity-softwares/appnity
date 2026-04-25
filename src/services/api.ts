@@ -68,6 +68,7 @@ export const publicApi = {
   getBlogs: (page = 1, pageSize = 10) => api.get(`/blogs?page=${page}&page_size=${pageSize}`).then(unwrap),
   getBlogBySlug: (slug: string) => api.get(`/blogs/${slug}`).then(unwrap),
   getPortfolios: (category = '', page = 1, pageSize = 10) => api.get(`/portfolios?category=${category}&page=${page}&page_size=${pageSize}`).then(unwrap),
+  getPortfolioBySlug: (slug: string) => api.get(`/portfolios/${slug}`).then(unwrap),
   getFeaturedPortfolios: () => api.get('/portfolios/featured').then(unwrap),
   getTeam: () => api.get('/team').then(unwrap),
   getServices: () => api.get('/services').then(unwrap),
@@ -75,7 +76,7 @@ export const publicApi = {
   getPricing: () => api.get('/pricing').then(unwrap),
   getTestimonials: () => api.get('/testimonials').then(unwrap),
   getValues: () => api.get('/values').then(unwrap),
-  submitContact: (data: { name: string; email: string; service: string; message: string }) => api.post('/contact', data).then(res => res.data),
+  submitContact: (data: { name?: string; email: string; service?: string; message: string }) => api.post('/contact', data).then(res => res.data),
 };
 
 export const adminApi = {
@@ -85,7 +86,7 @@ export const adminApi = {
   
   // Contacts/Leads
   getContacts: () => api.get('/admin/contacts').then(unwrap),
-  updateContactStatus: (id: string, status: string) => api.put(`/admin/contacts/${id}/status`, { status }).then(res => res.data),
+  updateContactStatus: (id: string, status: string) => api.put(`/admin/contacts/${id}`, { status }).then(res => res.data),
   deleteContact: (id: string) => api.delete(`/admin/contacts/${id}`).then(res => res.data),
 
   // Portfolios

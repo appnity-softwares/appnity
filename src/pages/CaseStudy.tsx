@@ -3,20 +3,20 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Layout, ShieldAlert, Cpu } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { SEO } from "@/components/site/SEO";
-import { supabase } from "@/integrations/supabase/client";
+import { publicApi } from "@/services/api";
 
 interface Project {
   id: string;
   slug: string;
   title: string;
   tagline: string;
-  client: string;
+  client_name: string;
   industry: string;
   year: number;
   problem: string;
-  approach: string[];
-  outcomes: { metric: string; label: string }[];
-  stack: string[];
+  approach: string | string[]; // Can be JSON string from backend
+  metrics: { metric: string; label: string }[];
+  stack: string; // Backend returns string (comma separated)
 }
 
 const CaseStudy = () => {
@@ -26,15 +26,26 @@ const CaseStudy = () => {
 
   useEffect(() => {
     if (!slug) return;
-    supabase
-      .from("projects")
-      .select("*")
-      .eq("slug", slug)
-      .maybeSingle()
-      .then(({ data }) => {
-        setProject(data as unknown as Project | null);
+    const fetch = async () => {
+      try {
+        const data = await publicApi.getPortfolioBySlug(slug);
+        // Handle potential string-encoded JSON from backend
+        if (data) {
+          if (typeof data.approach === 'string' && data.approach.startsWith('[')) {
+            data.approach = JSON.parse(data.approach);
+          }
+          if (typeof data.metrics === 'string' && data.metrics.startsWith('[')) {
+            data.metrics = JSON.parse(data.metrics);
+          }
+        }
+        setProject(data);
+      } catch (err) {
+        console.error("Failed to fetch project:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetch();
   }, [slug]);
 
   if (loading) {
@@ -85,7 +96,7 @@ const CaseStudy = () => {
             <p className="mt-6 text-xl text-muted-foreground leading-relaxed">{project.tagline}</p>
             <div className="mt-8 flex items-center justify-center gap-2">
               <span className="h-px w-8 bg-border" />
-              <p className="mono text-[10px] uppercase tracking-widest text-muted-foreground">Client: {project.client}</p>
+              <p className="mono text-[10px] uppercase tracking-widest text-muted-foreground">Client: {project.client_name}</p>
               <span className="h-px w-8 bg-border" />
             </div>
           </div>
@@ -112,12 +123,12 @@ const CaseStudy = () => {
                   <h3 className="label-high-contrast mb-0">Tech Stack</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {project.stack.map((s) => (
+                  {(project.stack || "").split(',').map((s) => (
                     <span
                       key={s}
                       className="mono rounded-lg border border-border-strong bg-surface-2 px-3 py-1.5 text-[11px] font-bold text-muted-foreground"
                     >
-                      {s}
+                      {s.trim()}
                     </span>
                   ))}
                 </div>
@@ -133,7 +144,7 @@ const CaseStudy = () => {
               </div>
               <div className="rounded-[2rem] border border-border-strong bg-card p-8 md:p-10 shadow-card">
                 <ul className="space-y-6">
-                  {project.approach.map((a, i) => (
+                  {(Array.isArray(project.approach) ? project.approach : []).map((a, i) => (
                     <li key={i} className="flex gap-4 text-base leading-relaxed text-foreground/90">
                       <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-glow" />
                       <span>{a}</span>
@@ -143,7 +154,7 @@ const CaseStudy = () => {
               </div>
 
               <div className="mt-8 grid grid-cols-3 divide-x divide-border-strong rounded-2xl border border-border-strong bg-background shadow-sm">
-                {project.outcomes.map((o) => (
+                {(project.metrics || []).map((o) => (
                   <div key={o.label} className="px-4 py-6 text-center">
                     <div className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{o.metric}</div>
                     <div className="mt-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{o.label}</div>
